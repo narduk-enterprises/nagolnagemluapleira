@@ -1,30 +1,47 @@
 import { google } from 'googleapis'
-import { writeFileSync, existsSync, mkdirSync } from 'node:fs'
-import { join } from 'node:path'
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 import 'dotenv/config'
 
 /**
  * GSC Toolbox: Programmatically manage Google Search Console properties.
  * 
  * Usage:
- * npx jiti scripts/gsc-toolbox.ts init <site_url>
- * npx jiti scripts/gsc-toolbox.ts verify <site_url>
- * npx jiti scripts/gsc-toolbox.ts submit <site_url>
+ * npx jiti tools/gsc-toolbox.ts init <site_url>
+ * npx jiti tools/gsc-toolbox.ts verify <site_url>
+ * npx jiti tools/gsc-toolbox.ts submit <site_url>
  */
 
 const siteUrl = process.argv[3] || process.env.SITE_URL
-const serviceAccountJson = process.env.GSC_SERVICE_ACCOUNT_JSON
+
+function loadCredentials(): Record<string, any> {
+  // Option A: file path (recommended)
+  const keyFilePath = process.env.GSC_SERVICE_ACCOUNT_JSON_PATH?.trim()
+  if (keyFilePath) {
+    const resolved = resolve(process.cwd(), keyFilePath)
+    if (!existsSync(resolved)) {
+      throw new Error(`Service account key file not found: ${resolved}`)
+    }
+    return JSON.parse(readFileSync(resolved, 'utf8'))
+  }
+
+  // Option B: inline JSON or base64
+  const inline = process.env.GSC_SERVICE_ACCOUNT_JSON?.trim()
+  if (inline) {
+    let str = inline
+    if (!str.startsWith('{')) {
+      str = Buffer.from(str, 'base64').toString('utf8')
+    }
+    return JSON.parse(str)
+  }
+
+  throw new Error(
+    'No service account credentials found. Set GSC_SERVICE_ACCOUNT_JSON_PATH (path to key file) or GSC_SERVICE_ACCOUNT_JSON (inline JSON/base64) in your .env'
+  )
+}
 
 async function getAuth() {
-  if (!serviceAccountJson) {
-    throw new Error('GSC_SERVICE_ACCOUNT_JSON is not set')
-  }
-  let credentialsStr = serviceAccountJson.trim()
-  if (!credentialsStr.startsWith('{')) {
-    // Try base64 decoding
-    credentialsStr = Buffer.from(credentialsStr, 'base64').toString('utf8')
-  }
-  const credentials = JSON.parse(credentialsStr)
+  const credentials = loadCredentials()
   return new google.auth.GoogleAuth({
     credentials,
     scopes: [
@@ -123,13 +140,35 @@ async function main() {
         await addSite(siteUrl)
         const token = await getVerificationToken(siteUrl)
         if (token) {
-          const fileName = token.split(': ')[0]?.replace('verification-file=', '').trim() || 'google-verification.html'
-          const content = token.split(': ')[1] || token
+          // FILE verification expects:
+          // 1) a file at `/${googleXXXXXXXXXXXX.html}`
+          // 2) whose contents are exactly `google-site-verification: googleXXXXXXXXXXXX.html`
+          //
+          // The API response token format can vary (plain filename, or a formatted string).
+          const m = token.match(/google[0-9a-z]+\.html/i)
+          const fileName =
+            token.match(/verification-file=([^:\s]+)/i)?.[1] ||
+            (m ? m[0] : '') ||
+            'google-verification.html'
+          const content = token.includes('google-site-verification:')
+            ? token
+            : `google-site-verification: ${fileName}`
           const publicDir = join(process.cwd(), 'public')
           if (!existsSync(publicDir)) mkdirSync(publicDir)
           const filePath = join(publicDir, fileName)
           writeFileSync(filePath, content)
           console.log(`💾 Verification file created: public/${fileName}`)
+
+          // Cloudflare Pages (and some hosting setups) may redirect `/foo.html` -> `/foo`.
+          // Create a no-extension copy too so verification still succeeds.
+          if (fileName.toLowerCase().endsWith('.html')) {
+            const noExt = fileName.slice(0, -'.html'.length)
+            if (noExt && noExt !== fileName) {
+              writeFileSync(join(publicDir, noExt), content)
+              console.log(`💾 Verification file created: public/${noExt}`)
+            }
+          }
+
           console.log('👉 Deploy your app, then run: npm run gsc:verify')
         }
         break

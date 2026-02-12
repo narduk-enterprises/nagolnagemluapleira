@@ -22,5 +22,15 @@ logs
 .env
 .env.*
 !.env.example
+
+# Service account keys
+*.serviceaccount.json
+gen-lang-client-*.json
+narduk-seo-automation-*.json
+
+# Misc build artifacts
+*.bak
+typecheck_errors.txt
+
 .vercel
 .wrangler/
