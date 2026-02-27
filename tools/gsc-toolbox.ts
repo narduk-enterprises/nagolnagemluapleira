@@ -136,7 +136,15 @@ async function main() {
 
   try {
     switch (cmd) {
-      case 'init':
+      case 'audit': {
+        // Assuming GSCClient is defined elsewhere or will be added
+        // const gsc = new GSCClient(process.env.GSC_PROJECT_ID || '')
+        // const audit = await gsc.auditConfig()
+        // console.log(JSON.stringify(audit, null, 2))
+        console.log('Audit command not fully implemented yet.')
+        break
+      }
+      case 'init': {
         await addSite(siteUrl)
         const token = await getVerificationToken(siteUrl)
         if (token) {
@@ -172,8 +180,15 @@ async function main() {
           console.log('👉 Deploy your app, then run: npm run setup:gsc:verify')
         }
         break
-      
-      case 'verify':
+      }
+      case 'setup': {
+        // Assuming GSCClient is defined elsewhere or will be added
+        // const gsc = new GSCClient(process.env.GSC_PROJECT_ID || '')
+        // await gsc.setup()
+        console.log('Setup command not fully implemented yet.')
+        break
+      }
+      case 'verify': {
         await verifySite(siteUrl)
         const userEmail = process.env.GSC_USER_EMAIL
         if (userEmail) {
@@ -183,10 +198,11 @@ async function main() {
           console.log('👉 To see this property in your dashboard, add your email to .env and run: npm run setup:gsc:verify')
         }
         break
-
-      case 'submit':
+      }
+      case 'submit': {
         await submitSitemap(siteUrl)
         break
+      }
 
       default:
         console.log('Usage: npx jiti tools/gsc-toolbox.ts [init|verify|submit]')

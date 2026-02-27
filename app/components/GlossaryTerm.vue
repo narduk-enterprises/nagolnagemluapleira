@@ -12,10 +12,10 @@ const dictionaryEntry = computed(() => {
 </script>
 
 <template>
-  <UPopover :popper="{ placement: 'top' }">
-    <button class="underline decoration-[var(--color-primary)] decoration-2 underline-offset-4 cursor-help hover:decoration-[var(--color-accent)] transition-colors">
+  <UPopover :content="{ align: 'center', side: 'top' }">
+    <UButton variant="link" color="neutral" class="p-0 underline decoration-[var(--color-primary)] decoration-2 underline-offset-4 cursor-help hover:decoration-[var(--color-accent)] transition-colors">
       <slot>{{ term }}</slot>
-    </button>
+    </UButton>
     
     <template #content>
       <div v-if="dictionaryEntry" class="w-80 p-4 relative no-print bg-[var(--color-card)] border border-[var(--color-border)] rounded-md shadow-md text-[var(--color-foreground)]">

@@ -27,10 +27,13 @@ function handleBranchClick(branchId: string) {
 <template>
   <div class="space-y-6">
     <div class="flex items-center justify-center gap-3 p-4 bg-muted/30 rounded-lg">
-      <label for="earth-comparison" class="text-sm font-medium flex items-center gap-2 cursor-pointer">
+      <span 
+        class="text-sm font-medium flex items-center gap-2 cursor-pointer select-none" 
+        @click="showEarthComparison = !showEarthComparison"
+      >
         <UIcon name="i-lucide-info" class="w-4 h-4" />
         Compare to Earth Government
-      </label>
+      </span>
       <USwitch
         id="earth-comparison"
         v-model="showEarthComparison"
@@ -38,12 +41,16 @@ function handleBranchClick(branchId: string) {
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <UCard
+      <div
         v-for="branch in planetData.government.branches"
         :key="branch.id"
-        class="p-6 cursor-pointer transition-all hover:shadow-lg"
+        role="button"
+        tabindex="0"
+        class="p-6 cursor-pointer bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl transition-all hover:shadow-lg focus-visible:ring-2 focus-visible:ring-primary outline-none"
         :class="{ 'md:col-span-2 bg-[var(--color-muted)]/50': expandedBranch === branch.id }"
         @click="handleBranchClick(branch.id)"
+        @keydown.enter="handleBranchClick(branch.id)"
+        @keydown.space.prevent="handleBranchClick(branch.id)"
       >
         <div class="flex items-start gap-4">
           <div class="w-12 h-12 rounded-lg bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0 personality-transition">
@@ -70,12 +77,12 @@ function handleBranchClick(branchId: string) {
               </div>
             </div>
             
-            <button v-if="expandedBranch !== branch.id" class="text-xs text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors mt-2 font-semibold">
+            <UButton v-if="expandedBranch !== branch.id" variant="link" color="primary" class="p-0 h-auto text-xs hover:text-[var(--color-accent)] transition-colors mt-2 font-semibold">
               Click to expand
-            </button>
+            </UButton>
           </div>
         </div>
-      </UCard>
+      </div>
     </div>
   </div>
 </template>

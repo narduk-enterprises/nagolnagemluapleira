@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted, computed } from 'vue'
 import { usePersonality } from '~/composables/usePersonality'
 import { useNarration } from '~/composables/useNarration'
 import { getSectionStartIndex } from '~/utils/navigation'
@@ -36,25 +36,27 @@ watch(currentSectionId, (sectionId) => {
 })
 
 onMounted(() => {
-  observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        setVisibleSectionId(entry.target.id)
-        // Don't update visual active dot from scroll if narration is active
-        if (!isNarrating.value) {
-          const index = sections.findIndex((s) => s.id === entry.target.id)
-          if (index !== -1) {
-            currentSection.value = index
+  if (import.meta.client) {
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setVisibleSectionId(entry.target.id)
+          // Don't update visual active dot from scroll if narration is active
+          if (!isNarrating.value) {
+            const index = sections.findIndex((s) => s.id === entry.target.id)
+            if (index !== -1) {
+              currentSection.value = index
+            }
           }
         }
-      }
-    })
-  }, { threshold: 0.5 })
+      })
+    }, { threshold: 0.5 })
 
-  sections.forEach((section) => {
-    const el = document.getElementById(section.id)
-    if (el) observer?.observe(el)
-  })
+    sections.forEach((section) => {
+      const el = document.getElementById(section.id)
+      if (el) observer?.observe(el)
+    })
+  }
 })
 
 onUnmounted(() => {
@@ -70,7 +72,7 @@ function scrollToSection(index: number) {
   if (isNarrating.value) {
     const voiceoverIndex = getSectionStartIndex(section.id)
     emitNavigation(voiceoverIndex)
-  } else {
+  } else if (import.meta.client) {
     const el = document.getElementById(section.id)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' })
@@ -93,22 +95,25 @@ function handleNext() {
 
 <template>
   <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 no-print">
-    <div class="bg-[var(--color-card)] border-2 border-[var(--color-border)] shadow-xl rounded-full px-6 py-3 flex items-center gap-4">
+    <div class="bg-[var(--color-card)] border-2 border-[var(--color-border)] shadow-xl rounded-full px-6 py-3 flex items-center gap-4 personality-transition">
       <UButton
         :disabled="currentSection === 0"
         variant="ghost"
+        color="neutral"
         size="sm"
         class="gap-2 focus-visible:ring-0"
         icon="i-lucide-chevron-left"
         @click="handlePrevious"
       >
-        <span class="hidden sm:inline">{{ microcopy.previousSection }}</span>
+        <span class="hidden sm:inline font-display">{{ microcopy.previousSection }}</span>
       </UButton>
 
       <div class="flex items-center gap-1 sm:gap-2">
-        <button
+        <UButton
           v-for="(section, index) in sections"
           :key="section.id"
+          variant="ghost"
+          color="neutral"
           class="p-1 sm:p-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full group"
           :aria-label="`Go to ${section.label}`"
           @click.prevent="scrollToSection(index)"
@@ -117,18 +122,19 @@ function handleNext() {
             class="h-2 rounded-full transition-all personality-transition"
             :class="index === currentSection ? 'bg-[var(--color-primary)] w-8' : 'w-2 bg-[var(--color-border)] group-hover:bg-[var(--color-muted-foreground)]'"
           ></div>
-        </button>
+        </UButton>
       </div>
 
       <UButton
         :disabled="currentSection === sections.length - 1"
         variant="ghost"
+        color="neutral"
         size="sm"
         class="gap-2 focus-visible:ring-0"
         trailing-icon="i-lucide-chevron-right"
         @click="handleNext"
       >
-        <span class="hidden sm:inline">{{ microcopy.nextSection }}</span>
+        <span class="hidden sm:inline font-display">{{ microcopy.nextSection }}</span>
       </UButton>
     </div>
   </div>

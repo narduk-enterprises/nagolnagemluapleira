@@ -20,8 +20,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <button
+  <div
+    role="button"
+    tabindex="0"
     @click="rotateFact"
+    @keydown.enter="rotateFact"
+    @keydown.space.prevent="rotateFact"
     class="w-full cursor-pointer rounded-lg bg-[var(--color-accent)] text-[var(--color-accent-foreground)] px-4 py-3 text-left text-sm flex items-start gap-3 hover:bg-[var(--color-accent)]/90 active:scale-[0.98] transition-all duration-200 personality-transition shadow-sm hover:shadow-md border border-[var(--color-accent)]/20"
     :aria-label="`${microcopy.randomFact}: ${currentFact}. Click to see another fact.`"
   >
@@ -30,5 +34,5 @@ onMounted(() => {
       <span class="font-semibold">{{ microcopy.randomFact }}: </span>
       <span class="ml-1.5">{{ currentFact }}</span>
     </div>
-  </button>
+  </div>
 </template>

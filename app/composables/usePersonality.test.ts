@@ -1,4 +1,4 @@
-import { expect, it, describe, beforeEach } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { usePersonality } from './usePersonality'
 
 describe('usePersonality', () => {

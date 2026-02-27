@@ -6,8 +6,7 @@ export async function getVoiceoverUrl(key: string): Promise<string | undefined> 
     if (!res.ok) return undefined
     const index = await res.json()
     return index[key]?.mp3
-  } catch (error) {
-    console.warn("Could not load voiceover index map.")
+  } catch (_error) {
     return undefined
   }
 }

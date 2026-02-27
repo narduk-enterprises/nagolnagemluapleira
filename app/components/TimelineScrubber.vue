@@ -43,13 +43,17 @@ onUnmounted(() => {
 })
 
 function handleTouchStart(e: TouchEvent) {
-  isDragging.value = true
-  updateHour(e.touches[0].clientX)
+  const touch = e.touches[0]
+  if (touch) {
+    isDragging.value = true
+    updateHour(touch.clientX)
+  }
 }
 
 function handleTouchMove(e: TouchEvent) {
-  if (isDragging.value) {
-    updateHour(e.touches[0].clientX)
+  const touch = e.touches[0]
+  if (isDragging.value && touch) {
+    updateHour(touch.clientX)
   }
 }
 

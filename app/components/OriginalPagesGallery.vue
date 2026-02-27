@@ -74,30 +74,30 @@ function navigateNext() {
     </UCarousel>
 
     <UModal v-model:open="isModalOpen" fullscreen :ui="{ overlay: 'bg-black/95' }">
-      <div v-if="selectedIndex !== null" class="flex flex-col h-full bg-black/95 text-white">
-        <!-- Header -->
-        <div class="flex items-center justify-between p-4 z-10 shrink-0">
-          <div class="text-sm md:text-base">
-            <p class="font-medium">{{ originalPages[selectedIndex].caption }}</p>
-            <p class="text-white/70">Page {{ selectedIndex + 1 }} of {{ originalPages.length }}</p>
+        <div v-if="selectedIndex !== null && originalPages[selectedIndex]" class="flex flex-col h-full bg-black/95 text-white">
+          <!-- Header -->
+          <div class="flex items-center justify-between p-4 z-10 shrink-0">
+            <div class="text-sm md:text-base">
+              <p class="font-medium">{{ originalPages[selectedIndex]?.caption }}</p>
+              <p class="text-white/70">Page {{ selectedIndex + 1 }} of {{ originalPages.length }}</p>
+            </div>
+            <UButton
+              variant="ghost"
+              icon="i-lucide-x"
+              class="text-white hover:bg-white/20"
+              @click="closeViewer"
+              aria-label="Close viewer"
+            />
           </div>
-          <UButton
-            variant="ghost"
-            icon="i-lucide-x"
-            class="text-white hover:bg-white/20"
-            @click="closeViewer"
-            aria-label="Close viewer"
-          />
-        </div>
 
-        <!-- Main Content (Image) -->
-        <div class="flex-1 relative overflow-hidden flex items-center justify-center">
-          <img
-            :src="originalPages[selectedIndex].src"
-            :alt="originalPages[selectedIndex].alt"
-            class="max-w-full max-h-full object-contain select-none transition-transform duration-300"
-            :style="{ transform: `scale(${scale})` }"
-          />
+          <!-- Main Content (Image) -->
+          <div class="flex-1 relative overflow-hidden flex items-center justify-center">
+            <img
+              :src="originalPages[selectedIndex]?.src"
+              :alt="originalPages[selectedIndex]?.alt"
+              class="max-w-full max-h-full object-contain select-none transition-transform duration-300"
+              :style="{ transform: `scale(${scale})` }"
+            />
 
           <!-- Controls -->
           <div class="absolute inset-y-0 left-0 flex items-center p-4">

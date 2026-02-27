@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { planetData } from '~/utils/planetData'
 
 interface LineTiming {
@@ -55,7 +55,7 @@ function handleTimeUpdate() {
   )
   
   if (activeLineIndex === -1) {
-    if (time < anthemTiming[0].start || time > anthemTiming[anthemTiming.length - 1].end) {
+    if (anthemTiming.length > 0 && (time < (anthemTiming[0]?.start ?? 0) || time > (anthemTiming[anthemTiming.length - 1]?.end ?? 0))) {
       currentLine.value = -1
     }
     return
@@ -70,9 +70,20 @@ function handleTimeUpdate() {
   }
 }
 
+const syncAudio = () => {
+  const audio = audioRef.value
+  if (audio) {
+    currentTime.value = audio.currentTime
+    requestAnimationFrame(syncAudio)
+  }
+}
+
 function handleLoadedMetadata() {
-  if (audioRef.value) {
-    duration.value = audioRef.value.duration
+  const audio = audioRef.value
+  if (audio) {
+    duration.value = audio.duration
+    // Sync duration on load
+    requestAnimationFrame(syncAudio)
   }
 }
 
@@ -121,9 +132,14 @@ function handleSeek() {
   audioRef.value.currentTime = currentTime.value
 }
 
+function handleSeekEnd() {
+  isDragging.value = false
+  handleSeek()
+}
+
 const displayLine = computed(() => {
   if (currentLine.value >= 0 && currentLine.value < anthemTiming.length) {
-    return anthemTiming[currentLine.value].text
+    return anthemTiming[currentLine.value]?.text || ''
   }
   return ''
 })
@@ -187,16 +203,16 @@ onMounted(() => {
 
       <!-- Scrubber -->
       <div class="space-y-2">
-        <input 
+        <UInput 
           type="range"
           v-model.number="currentTime"
           :max="duration || 100"
           step="0.1"
           class="w-full cursor-pointer accent-primary"
           @mousedown="isDragging = true"
-          @mouseup="isDragging = false; handleSeek()"
+          @mouseup="handleSeekEnd"
           @touchstart="isDragging = true"
-          @touchend="isDragging = false; handleSeek()"
+          @touchend="handleSeekEnd"
         />
         
         <div class="flex items-center justify-between text-xs text-muted-foreground px-1">

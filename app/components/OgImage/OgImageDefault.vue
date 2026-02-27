@@ -9,6 +9,7 @@
   Note: Satori has limited CSS support — use inline styles and flexbox only.
   No Tailwind classes, no CSS Grid, no pseudo-elements.
 -->
+<!-- eslint-disable atx/no-inline-hex -->
 <script setup lang="ts">
 withDefaults(defineProps<{
   title?: string
@@ -21,6 +22,17 @@ withDefaults(defineProps<{
   icon: '✨',
   siteName: 'Nagolnagemluapleira',
 })
+const COLORS = {
+  bgStart: '#0a0f1a',
+  bgMid: '#0f1729',
+  bgEnd: '#111d33',
+  primary: '#10b981',
+  secondary: '#3b82f6',
+  accent: '#8b5cf6',
+  foreground: '#f1f5f9',
+  muted: '#94a3b8',
+  slate: '#64748b'
+} as const
 </script>
 
 <template>
@@ -33,7 +45,7 @@ withDefaults(defineProps<{
       justifyContent: 'center',
       alignItems: 'flex-start',
       padding: '80px',
-      background: 'linear-gradient(135deg, #0a0f1a 0%, #0f1729 40%, #111d33 100%)',
+      background: `linear-gradient(135deg, ${COLORS.bgStart} 0%, ${COLORS.bgMid} 40%, ${COLORS.bgEnd} 100%)`,
       fontFamily: 'Inter, sans-serif',
       position: 'relative',
       overflow: 'hidden',
@@ -48,7 +60,7 @@ withDefaults(defineProps<{
         width: '500px',
         height: '500px',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)',
+        background: `radial-gradient(circle, ${COLORS.primary}26 0%, transparent 70%)`,
       }"
     />
 
@@ -60,7 +72,7 @@ withDefaults(defineProps<{
         left: '0',
         right: '0',
         height: '4px',
-        background: 'linear-gradient(90deg, #10b981, #3b82f6, #8b5cf6)',
+        background: `linear-gradient(90deg, ${COLORS.primary}, ${COLORS.secondary}, ${COLORS.accent})`,
       }"
     />
 
@@ -79,7 +91,7 @@ withDefaults(defineProps<{
       :style="{
         fontSize: '56px',
         fontWeight: '700',
-        color: '#f1f5f9',
+        color: COLORS.foreground,
         lineHeight: '1.15',
         marginBottom: '16px',
         maxWidth: '900px',
@@ -94,7 +106,7 @@ withDefaults(defineProps<{
       :style="{
         fontSize: '24px',
         fontWeight: '400',
-        color: '#94a3b8',
+        color: COLORS.muted,
         lineHeight: '1.5',
         maxWidth: '800px',
       }"
@@ -118,7 +130,7 @@ withDefaults(defineProps<{
           width: '32px',
           height: '32px',
           borderRadius: '8px',
-          background: '#10b981',
+          background: COLORS.primary,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -133,7 +145,7 @@ withDefaults(defineProps<{
         :style="{
           fontSize: '18px',
           fontWeight: '600',
-          color: '#64748b',
+          color: COLORS.slate,
         }"
       >
         {{ siteName }}

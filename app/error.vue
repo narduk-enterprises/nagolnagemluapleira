@@ -1,50 +1,20 @@
-<template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 px-4">
-    <div class="text-center max-w-md">
-      <!-- Error code -->
-      <p class="text-7xl font-bold font-display text-primary mb-2">
-        {{ error?.statusCode || 500 }}
-      </p>
-
-      <!-- Title -->
-      <h1 class="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
-        {{ title }}
-      </h1>
-
-      <!-- Description -->
-      <p class="text-gray-500 dark:text-gray-400 mb-8">
-        {{ description }}
-      </p>
-
-      <!-- Actions -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <UButton
-          size="lg"
-          icon="i-lucide-home"
-          @click="handleError"
-        >
-          Go Home
-        </UButton>
-        <UButton
-          size="lg"
-          variant="ghost"
-          color="neutral"
-          icon="i-lucide-refresh-cw"
-          @click="refreshPage"
-        >
-          Try Again
-        </UButton>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-import type { NuxtError } from '#app'
-
 const props = defineProps<{
-  error: NuxtError
+  error: {
+    url: string
+    statusCode: number
+    statusMessage: string
+    message: string
+    stack: string
+    data?: any
+  }
 }>()
+
+const handleClearError = () => {
+  if (import.meta.client) {
+    window.location.reload()
+  }
+}
 
 const title = computed(() => {
   const code = props.error?.statusCode
@@ -58,21 +28,51 @@ const description = computed(() => {
   const code = props.error?.statusCode
   if (code === 404) return "The page you're looking for doesn't exist or has been moved."
   if (code === 403) return "You don't have permission to access this resource."
-  if (code === 401) return 'Please sign in to access this page.'
-  return 'An unexpected error occurred. Please try again later.'
+  if (code === 401) return "Please log in to access this page."
+  return "An unexpected error occurred. Please try again later."
 })
-
-function handleError() {
-  clearError({ redirect: '/' })
-}
-
-function refreshPage() {
-  clearError()
-  window.location.reload()
-}
 
 useSeoMeta({
   title: `${props.error?.statusCode || 'Error'} — ${title.value}`,
   robots: 'noindex, nofollow',
 })
 </script>
+
+<template>
+  <div class="min-h-screen bg-default flex items-center justify-center p-4">
+    <UCard class="max-w-md w-full p-6 text-center shadow-xl border-default">
+      <div class="mb-6">
+        <div class="w-20 h-20 bg-muted/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <UIcon name="i-lucide-alert-triangle" class="w-10 h-10 text-primary" />
+        </div>
+        <h1 class="text-3xl font-bold text-foreground mb-2">
+          {{ error.statusCode }}
+        </h1>
+        <p class="text-lg font-medium text-foreground/80 mb-2">
+          {{ title }}
+        </p>
+        <p class="text-sm text-muted-foreground">
+          {{ description }}
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <UButton
+          color="primary"
+          size="lg"
+          block
+          to="/"
+        >
+          Go back home
+        </UButton>
+        <UButton
+          variant="ghost"
+          block
+          @click="handleClearError"
+        >
+          Try again
+        </UButton>
+      </div>
+    </UCard>
+  </div>
+</template>

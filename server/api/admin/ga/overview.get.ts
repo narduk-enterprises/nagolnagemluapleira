@@ -42,8 +42,8 @@ export default defineEventHandler(async (event) => {
       },
     )
 
-    const totals = data.totals as Array<{ metricValues?: Array<{ value: string }> }> | undefined
-    const rows = data.rows as Array<Record<string, unknown>> | undefined
+    const totals = (data as any).totals as Array<{ metricValues?: Array<{ value: string }> }> | undefined
+    const rows = (data as any).rows as Array<Record<string, unknown>> | undefined
 
     return {
       totals: totals?.[0]?.metricValues || [],

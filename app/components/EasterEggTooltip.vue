@@ -12,9 +12,9 @@
       </div>
     </template>
     
-    <button class="inline-flex items-center gap-1 text-sm text-[var(--color-muted-foreground)] hover:text-[var(--color-primary)] transition-colors cursor-help">
+    <UButton variant="link" color="neutral" class="p-0 inline-flex items-center gap-1 text-sm text-[var(--color-muted-foreground)] hover:text-[var(--color-primary)] transition-colors cursor-help">
       <UIcon name="i-lucide-info" class="w-4 h-4" />
       <span class="underline decoration-dotted underline-offset-4">Did you notice?</span>
-    </button>
+    </UButton>
   </UTooltip>
 </template>

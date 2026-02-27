@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
       },
     )
 
-    const rows = data.rows as Array<Record<string, unknown>> | undefined
+    const rows = (data as any).rows as Array<Record<string, unknown>> | undefined
 
     return {
       rows: rows || [],

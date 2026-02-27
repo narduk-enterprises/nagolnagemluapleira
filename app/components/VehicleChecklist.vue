@@ -22,7 +22,7 @@ const progress = computed(() => (checkedCount.value / requirements.length) * 100
 <template>
   <UCard class="p-6 space-y-6">
     <div class="flex items-center justify-between">
-      <h3 class="text-xl font-semibold">Vehicle Requirements</h3>
+      <span class="text-sm font-medium flex items-center gap-2">Requirements</span>
       <UBadge
         :color="passed ? 'success' : 'neutral'"
         class="transition-colors"
@@ -45,16 +45,9 @@ const progress = computed(() => (checkedCount.value / requirements.length) * 100
           :id="req.id"
           v-model="checkedItems[req.id]"
           class="mt-1"
+          :label="req.item + (req.required ? ' *REQUIRED' : '')"
+          :ui="{ label: 'text-sm leading-relaxed cursor-pointer select-none group-hover:text-primary transition-colors' }"
         />
-        <label
-          :for="req.id"
-          class="flex-1 text-sm leading-relaxed cursor-pointer select-none group-hover:text-primary transition-colors"
-        >
-          {{ req.item }}
-          <span v-if="req.required" class="ml-2 text-xs text-error font-semibold">
-            *REQUIRED
-          </span>
-        </label>
       </div>
     </div>
 

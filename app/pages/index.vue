@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { usePersonality } from '~/composables/usePersonality'
-import { planetData, personalityMicrocopy } from '~/utils/planetData'
+import { planetData } from '~/utils/planetData'
 
-const { personality } = usePersonality()
-const microcopy = computed(() => personalityMicrocopy[personality.value])
+// microcopy was removed as it was unused.
 
 useSeoMeta({
   title: planetData.hero.title,
@@ -12,9 +9,11 @@ useSeoMeta({
 })
 
 function scrollToSection(sectionId: string) {
-  const el = document.getElementById(sectionId)
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' })
+  if (import.meta.client) {
+    const el = document.getElementById(sectionId)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 }
 </script>
@@ -269,8 +268,8 @@ function scrollToSection(sectionId: string) {
       </UCard>
     </SectionShell>
 
-    <footer class="py-6 text-center text-xs text-[var(--color-muted-foreground)] border-t border-[var(--color-border)] no-print mt-12 mb-20 md:mb-6">
+    <div class="py-6 text-center text-xs text-[var(--color-muted-foreground)] border-t border-[var(--color-border)] no-print mt-12 mb-20 md:mb-6">
       <p>An interactive planet report &bull; Built with curiosity and code</p>
-    </footer>
+    </div>
   </div>
 </template>
