@@ -27,9 +27,18 @@ async function focusVoiceoverTarget(params: { key: string, index: number, sectio
   await new Promise(resolve => setTimeout(resolve, 50))
   
   const targetElement = document.querySelector(`[data-voiceover="${params.key}"]`)
-  if (!targetElement) return
+  if (targetElement) {
+    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    return
+  }
   
-  targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  // Fallback: scroll to the section if no specific voiceover target found
+  if (params.sectionId) {
+    const sectionEl = document.getElementById(params.sectionId)
+    if (sectionEl) {
+      sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
 }
 
 async function playAtIndex(index: number, forceScroll: boolean = false, cause?: 'restore' | 'narration-manual' | 'narration-auto') {

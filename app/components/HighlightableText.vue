@@ -18,7 +18,8 @@ const isHighlighted = computed(() => {
   <component
     :is="as || 'p'"
     class="transition-colors duration-300"
-    :class="{ 'bg-primary/20 text-primary-on-surface rounded px-1': isHighlighted }"
+    :class="{ 'bg-[var(--color-primary)]/20 rounded px-1': isHighlighted }"
+    :data-voiceover="voiceoverKey || undefined"
   >
     <slot />
   </component>
