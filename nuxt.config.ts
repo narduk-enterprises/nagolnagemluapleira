@@ -33,8 +33,8 @@ export default defineNuxtConfig({
     gaPropertyId: process.env.GA_PROPERTY_ID || '',
     posthogProjectId: process.env.POSTHOG_PROJECT_ID || '',
     public: {
-      appUrl: process.env.SITE_URL || 'https://nuxt-v4-template.workers.dev',
-      appName: process.env.APP_NAME || 'Nuxt 4 Demo',
+      appUrl: process.env.SITE_URL || 'https://nagolnagemluapleira.workers.dev',
+      appName: process.env.APP_NAME || 'Nagolnagemluapleira',
       // Analytics
       posthogPublicKey: process.env.POSTHOG_PUBLIC_KEY || '',
       posthogHost: process.env.POSTHOG_HOST || 'https://us.i.posthog.com',
@@ -51,9 +51,9 @@ export default defineNuxtConfig({
   // these via the `useSeo()` composable.
 
   site: {
-    url: process.env.SITE_URL || 'https://nuxt-v4-template.workers.dev',
-    name: 'Nuxt 4 Demo',
-    description: 'A production-ready demo template showcasing Nuxt 4, Nuxt UI 4, Tailwind CSS 4, and Cloudflare Workers with D1 database.',
+    url: process.env.SITE_URL || 'https://nagolnagemluapleira.workers.dev',
+    name: 'Nagolnagemluapleira',
+    description: 'A 6th grade world-building report (interactive edition) about a planet with dual personalities.',
     defaultLocale: 'en',
   },
 
@@ -66,8 +66,8 @@ export default defineNuxtConfig({
   schemaOrg: {
     identity: {
       type: 'Organization',
-      name: 'Nuxt 4 Demo',
-      url: process.env.SITE_URL || 'https://nuxt-v4-template.workers.dev',
+      name: 'Nagolnagemluapleira',
+      url: process.env.SITE_URL || 'https://nagolnagemluapleira.workers.dev',
       logo: '/favicon.svg',
     },
   },
@@ -75,7 +75,7 @@ export default defineNuxtConfig({
   image: {
     provider: 'cloudflare',
     cloudflare: {
-      baseURL: process.env.SITE_URL || 'https://nuxt-v4-template.workers.dev',
+      baseURL: process.env.SITE_URL || 'https://nagolnagemluapleira.workers.dev',
     },
   },
 

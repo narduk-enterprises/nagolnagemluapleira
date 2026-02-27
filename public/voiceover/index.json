@@ -1,0 +1,312 @@
+{
+  "planetData.hero.title": {
+    "mp3": "/voiceover/planetData.hero.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.hero.tagline": {
+    "mp3": "/voiceover/planetData.hero.tagline.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.hero.subtitle": {
+    "mp3": "/voiceover/planetData.hero.subtitle.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.bigIdea.title": {
+    "mp3": "/voiceover/planetData.bigIdea.title.mp3",
+    "voiceProfileId": "scholarly-guide",
+    "elevenVoiceId": "IKne3meq5aSn9XLyUdCD"
+  },
+  "planetData.bigIdea.intro": {
+    "mp3": "/voiceover/planetData.bigIdea.intro.mp3",
+    "voiceProfileId": "scholarly-guide",
+    "elevenVoiceId": "IKne3meq5aSn9XLyUdCD"
+  },
+  "planetData.bigIdea.explanation": {
+    "mp3": "/voiceover/planetData.bigIdea.explanation.mp3",
+    "voiceProfileId": "scholarly-guide",
+    "elevenVoiceId": "IKne3meq5aSn9XLyUdCD"
+  },
+  "planetData.bigIdea.characteristics.personalityA": {
+    "mp3": "/voiceover/planetData.bigIdea.characteristics.personalityA.mp3",
+    "voiceProfileId": "enthusiastic-explorer",
+    "elevenVoiceId": "pFZP5JQG7iQjIQuC4Bku"
+  },
+  "planetData.bigIdea.characteristics.personalityB": {
+    "mp3": "/voiceover/planetData.bigIdea.characteristics.personalityB.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.lifeStyles.title": {
+    "mp3": "/voiceover/planetData.lifeStyles.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.lifeStyles.intro": {
+    "mp3": "/voiceover/planetData.lifeStyles.intro.mp3",
+    "voiceProfileId": "scholarly-guide",
+    "elevenVoiceId": "IKne3meq5aSn9XLyUdCD"
+  },
+  "planetData.lifeStyles.sections.daily-routine.title": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.daily-routine.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.lifeStyles.sections.daily-routine.content": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.daily-routine.content.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.lifeStyles.sections.school-life.title": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.school-life.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.lifeStyles.sections.school-life.content": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.school-life.content.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.lifeStyles.sections.family-structure.title": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.family-structure.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.lifeStyles.sections.family-structure.content": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.family-structure.content.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.lifeStyles.sections.homes.title": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.homes.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.lifeStyles.sections.homes.content": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.homes.content.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.lifeStyles.sections.entertainment.title": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.entertainment.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.lifeStyles.sections.entertainment.content": {
+    "mp3": "/voiceover/planetData.lifeStyles.sections.entertainment.content.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.transportation.title": {
+    "mp3": "/voiceover/planetData.transportation.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.transportation.intro": {
+    "mp3": "/voiceover/planetData.transportation.intro.mp3",
+    "voiceProfileId": "scholarly-guide",
+    "elevenVoiceId": "IKne3meq5aSn9XLyUdCD"
+  },
+  "planetData.transportation.sections.vehicles.title": {
+    "mp3": "/voiceover/planetData.transportation.sections.vehicles.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.transportation.sections.vehicles.content": {
+    "mp3": "/voiceover/planetData.transportation.sections.vehicles.content.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.transportation.sections.rules.title": {
+    "mp3": "/voiceover/planetData.transportation.sections.rules.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.transportation.sections.rules.content": {
+    "mp3": "/voiceover/planetData.transportation.sections.rules.content.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.transportation.sections.technology.title": {
+    "mp3": "/voiceover/planetData.transportation.sections.technology.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.transportation.sections.technology.content": {
+    "mp3": "/voiceover/planetData.transportation.sections.technology.content.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.transportation.sections.safety.title": {
+    "mp3": "/voiceover/planetData.transportation.sections.safety.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.transportation.sections.safety.content": {
+    "mp3": "/voiceover/planetData.transportation.sections.safety.content.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.government.title": {
+    "mp3": "/voiceover/planetData.government.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.government.intro": {
+    "mp3": "/voiceover/planetData.government.intro.mp3",
+    "voiceProfileId": "scholarly-guide",
+    "elevenVoiceId": "IKne3meq5aSn9XLyUdCD"
+  },
+  "planetData.government.branches.znerential.name": {
+    "mp3": "/voiceover/planetData.government.branches.znerential.name.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.government.branches.znerential.description": {
+    "mp3": "/voiceover/planetData.government.branches.znerential.description.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.government.branches.notletial.name": {
+    "mp3": "/voiceover/planetData.government.branches.notletial.name.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.government.branches.notletial.description": {
+    "mp3": "/voiceover/planetData.government.branches.notletial.description.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.government.branches.ynnedive.name": {
+    "mp3": "/voiceover/planetData.government.branches.ynnedive.name.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.government.branches.ynnedive.description": {
+    "mp3": "/voiceover/planetData.government.branches.ynnedive.description.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.government.branches.gnikicial.name": {
+    "mp3": "/voiceover/planetData.government.branches.gnikicial.name.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.government.branches.gnikicial.description": {
+    "mp3": "/voiceover/planetData.government.branches.gnikicial.description.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.holidays.title": {
+    "mp3": "/voiceover/planetData.holidays.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.holidays.intro": {
+    "mp3": "/voiceover/planetData.holidays.intro.mp3",
+    "voiceProfileId": "scholarly-guide",
+    "elevenVoiceId": "IKne3meq5aSn9XLyUdCD"
+  },
+  "planetData.holidays.holidays.sdrawkcab.name": {
+    "mp3": "/voiceover/planetData.holidays.holidays.sdrawkcab.name.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.holidays.holidays.sdrawkcab.description": {
+    "mp3": "/voiceover/planetData.holidays.holidays.sdrawkcab.description.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.holidays.holidays.sdrawkcab.traditions": {
+    "mp3": "/voiceover/planetData.holidays.holidays.sdrawkcab.traditions.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.holidays.holidays.sdrawkcab.candleRitual": {
+    "mp3": "/voiceover/planetData.holidays.holidays.sdrawkcab.candleRitual.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.holidays.holidays.gnihsinotsa.name": {
+    "mp3": "/voiceover/planetData.holidays.holidays.gnihsinotsa.name.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.holidays.holidays.gnihsinotsa.description": {
+    "mp3": "/voiceover/planetData.holidays.holidays.gnihsinotsa.description.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.holidays.holidays.gnihsinotsa.traditions": {
+    "mp3": "/voiceover/planetData.holidays.holidays.gnihsinotsa.traditions.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.holidays.holidays.gnihsinotsa.dualCelebration": {
+    "mp3": "/voiceover/planetData.holidays.holidays.gnihsinotsa.dualCelebration.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.anthem.title": {
+    "mp3": "/voiceover/planetData.anthem.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.anthem.intro": {
+    "mp3": "/voiceover/planetData.anthem.intro.mp3",
+    "voiceProfileId": "scholarly-guide",
+    "elevenVoiceId": "IKne3meq5aSn9XLyUdCD"
+  },
+  "planetData.quote.title": {
+    "mp3": "/voiceover/planetData.quote.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.quote.quote": {
+    "mp3": "/voiceover/planetData.quote.quote.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.quote.author": {
+    "mp3": "/voiceover/planetData.quote.author.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.quote.explanation": {
+    "mp3": "/voiceover/planetData.quote.explanation.mp3",
+    "voiceProfileId": "scholarly-guide",
+    "elevenVoiceId": "IKne3meq5aSn9XLyUdCD"
+  },
+  "planetData.credits.title": {
+    "mp3": "/voiceover/planetData.credits.title.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.credits.intro": {
+    "mp3": "/voiceover/planetData.credits.intro.mp3",
+    "voiceProfileId": "warm-archivist",
+    "elevenVoiceId": "pNInz6obpgDQGcFmaJgB"
+  },
+  "planetData.credits.authors.0": {
+    "mp3": "/voiceover/planetData.credits.authors.0.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.credits.authors.1": {
+    "mp3": "/voiceover/planetData.credits.authors.1.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.credits.authors.2": {
+    "mp3": "/voiceover/planetData.credits.authors.2.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  },
+  "planetData.credits.authors.3": {
+    "mp3": "/voiceover/planetData.credits.authors.3.mp3",
+    "voiceProfileId": "narrator",
+    "elevenVoiceId": "JBFqnCBsd6RMkjVDRZzb"
+  }
+}
