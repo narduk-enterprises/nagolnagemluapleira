@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { usePersonality } from '~/composables/usePersonality'
+import { useNarration } from '~/composables/useNarration'
 import { personalityMicrocopy } from '~/utils/planetData'
 
 const sections = [
@@ -18,13 +19,25 @@ const sections = [
 
 const currentSection = ref(0)
 const { personality } = usePersonality()
+const { isNarrating, currentSectionId } = useNarration()
 
 const microcopy = computed(() => personalityMicrocopy[personality.value])
 
 let observer: IntersectionObserver | null = null
 
+// Sync tour navigation with narration progress
+watch(currentSectionId, (sectionId) => {
+  if (!isNarrating.value || !sectionId) return
+  const index = sections.findIndex((s) => s.id === sectionId)
+  if (index !== -1) {
+    currentSection.value = index
+  }
+})
+
 onMounted(() => {
   observer = new IntersectionObserver((entries) => {
+    // Don't update from scroll if narration is active (narration controls the nav)
+    if (isNarrating.value) return
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const index = sections.findIndex((s) => s.id === entry.target.id)
