@@ -5,10 +5,16 @@ const isPaused = ref(false)
 const currentVoiceoverKey = ref<string | null>(null)
 const currentSectionId = ref<string | null>(null)
 const currentVoiceoverIndex = ref<number | null>(null)
+const visibleSectionId = ref<string | null>(null)
+const onNavigationCallbacks = ref<((index: number) => void)[]>([])
 
 export function useNarration() {
   function setIsNarrating(val: boolean) {
     isNarrating.value = val
+  }
+  
+  function setVisibleSectionId(id: string | null) {
+    visibleSectionId.value = id
   }
   
   function setIsPaused(val: boolean) {
@@ -28,7 +34,6 @@ export function useNarration() {
   }
 
   // Navigation handler logic for external components (like TourNavigation) to control playback
-  const onNavigationCallbacks = ref<((index: number) => void)[]>([])
 
   function registerNavigationHandler(cb: (index: number) => void) {
     onNavigationCallbacks.value.push(cb)
@@ -47,7 +52,9 @@ export function useNarration() {
     currentVoiceoverKey,
     currentSectionId,
     currentVoiceoverIndex,
+    visibleSectionId,
     setIsNarrating,
+    setVisibleSectionId,
     setIsPaused,
     setCurrentVoiceoverKey,
     setCurrentSectionId,

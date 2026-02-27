@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import { getVoiceoverUrl } from '~/utils/voiceover'
 import { useNarration } from '~/composables/useNarration'
-import { VOICEOVER_ORDER, VOICEOVER_TO_SECTION } from '~/utils/navigation'
+import { VOICEOVER_ORDER, VOICEOVER_TO_SECTION, getSectionStartIndex } from '~/utils/navigation'
 
 const {
   isNarrating,
@@ -15,7 +15,8 @@ const {
   setCurrentVoiceoverKey,
   setCurrentSectionId,
   setCurrentVoiceoverIndex,
-  registerNavigationHandler
+  registerNavigationHandler,
+  visibleSectionId
 } = useNarration()
 
 const currentIndex = ref(0)
@@ -124,8 +125,14 @@ function handlePlayStop() {
   if (!isNarrating.value) {
     setIsNarrating(true)
     setIsPaused(false)
-    currentIndex.value = 0
-    playAtIndex(0, true, 'restore')
+    
+    let startIndex = 0
+    if (visibleSectionId.value) {
+      startIndex = getSectionStartIndex(visibleSectionId.value)
+    }
+    
+    currentIndex.value = startIndex
+    playAtIndex(startIndex, true, 'restore')
   } else {
     setIsNarrating(false)
     setIsPaused(false)

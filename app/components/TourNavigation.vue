@@ -2,6 +2,7 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { usePersonality } from '~/composables/usePersonality'
 import { useNarration } from '~/composables/useNarration'
+import { getSectionStartIndex } from '~/utils/navigation'
 import { personalityMicrocopy } from '~/utils/planetData'
 
 const sections = [
@@ -19,7 +20,7 @@ const sections = [
 
 const currentSection = ref(0)
 const { personality } = usePersonality()
-const { isNarrating, currentSectionId } = useNarration()
+const { isNarrating, currentSectionId, emitNavigation, setVisibleSectionId } = useNarration()
 
 const microcopy = computed(() => personalityMicrocopy[personality.value])
 
@@ -36,13 +37,15 @@ watch(currentSectionId, (sectionId) => {
 
 onMounted(() => {
   observer = new IntersectionObserver((entries) => {
-    // Don't update from scroll if narration is active (narration controls the nav)
-    if (isNarrating.value) return
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const index = sections.findIndex((s) => s.id === entry.target.id)
-        if (index !== -1) {
-          currentSection.value = index
+        setVisibleSectionId(entry.target.id)
+        // Don't update visual active dot from scroll if narration is active
+        if (!isNarrating.value) {
+          const index = sections.findIndex((s) => s.id === entry.target.id)
+          if (index !== -1) {
+            currentSection.value = index
+          }
         }
       }
     })
@@ -63,9 +66,15 @@ onUnmounted(() => {
 function scrollToSection(index: number) {
   const section = sections[index]
   if (!section) return
-  const el = document.getElementById(section.id)
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' })
+  
+  if (isNarrating.value) {
+    const voiceoverIndex = getSectionStartIndex(section.id)
+    emitNavigation(voiceoverIndex)
+  } else {
+    const el = document.getElementById(section.id)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 }
 
@@ -96,15 +105,19 @@ function handleNext() {
         <span class="hidden sm:inline">{{ microcopy.previousSection }}</span>
       </UButton>
 
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1 sm:gap-2">
         <button
           v-for="(section, index) in sections"
           :key="section.id"
-          class="h-2 rounded-full transition-all personality-transition"
-          :class="index === currentSection ? 'bg-[var(--color-primary)] w-8' : 'w-2 bg-[var(--color-border)] hover:bg-[var(--color-muted-foreground)]'"
+          class="p-1 sm:p-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full group"
           :aria-label="`Go to ${section.label}`"
-          @click="scrollToSection(index)"
-        ></button>
+          @click.prevent="scrollToSection(index)"
+        >
+          <div
+            class="h-2 rounded-full transition-all personality-transition"
+            :class="index === currentSection ? 'bg-[var(--color-primary)] w-8' : 'w-2 bg-[var(--color-border)] group-hover:bg-[var(--color-muted-foreground)]'"
+          ></div>
+        </button>
       </div>
 
       <UButton
