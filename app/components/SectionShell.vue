@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
-const props = defineProps<{
+defineProps<{
   id: string
   title: string
   titleVoiceoverKey?: string
@@ -13,7 +11,7 @@ const props = defineProps<{
     :id="id"
     class="py-12 px-4 scroll-mt-20 print-break pb-24 transition-all duration-500 reveal-on-scroll"
   >
-    <div class="max-w-lg mx-auto transition-all duration-500">
+    <div class="max-w-3xl mx-auto transition-all duration-500">
       <div class="flex items-center gap-2 mb-6">
         <HighlightableText
           v-if="titleVoiceoverKey"

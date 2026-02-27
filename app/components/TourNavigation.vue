@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { usePersonality } from '~/composables/usePersonality'
 import { personalityMicrocopy } from '~/utils/planetData'
 
@@ -49,6 +49,7 @@ onUnmounted(() => {
 
 function scrollToSection(index: number) {
   const section = sections[index]
+  if (!section) return
   const el = document.getElementById(section.id)
   if (el) {
     el.scrollIntoView({ behavior: 'smooth' })
@@ -70,7 +71,7 @@ function handleNext() {
 
 <template>
   <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 no-print">
-    <div class="bg-card border-2 border-border shadow-xl rounded-full px-6 py-3 flex items-center gap-4">
+    <div class="bg-[var(--color-card)] border-2 border-[var(--color-border)] shadow-xl rounded-full px-6 py-3 flex items-center gap-4">
       <UButton
         :disabled="currentSection === 0"
         variant="ghost"
