@@ -19,7 +19,11 @@
     "db:migrate": "wrangler d1 execute nagolnagemluapleira-db --local --file=drizzle/0000_initial_schema.sql",
     "db:studio": "drizzle-kit studio",
     "init": "npx jiti tools/init.ts",
-    "build:plugins": "cd eslint-plugin-nuxt-ui && pnpm run build && cd ../eslint-plugin-nuxt-guardrails && pnpm run build && cd ../tools/eslint-plugin-vue-official-best-practices && pnpm run build"
+    "build:plugins": "cd eslint-plugin-nuxt-ui && pnpm run build && cd ../eslint-plugin-nuxt-guardrails && pnpm run build && cd ../tools/eslint-plugin-vue-official-best-practices && pnpm run build",
+    "predev": "node tools/check-setup.js",
+    "prebuild": "node tools/check-setup.js",
+    "predeploy": "node tools/check-setup.js",
+    "update-layer": "npx tsx tools/update-layer.ts"
   },
   "dependencies": {
     "@nuxt/image": "^2.0.0",
