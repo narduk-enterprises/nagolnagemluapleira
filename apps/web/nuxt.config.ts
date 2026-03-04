@@ -8,8 +8,6 @@ export default defineNuxtConfig({
   modules: ['nitro-cloudflare-dev'],
   css: ['~/assets/css/main.css'],
 
-  compatibilityDate: '2025-07-15',
-
   devtools: { enabled: true },
 
   future: {
@@ -76,8 +74,6 @@ export default defineNuxtConfig({
       baseURL: process.env.SITE_URL || 'https://nagolnagemluapleira.nard.uk',
     },
   },
-
-
 
   sitemap: {},
 
