@@ -76,10 +76,10 @@ export function useArticleSchema(options: ArticleOptions) {
         name: a.name,
         url: a.url,
       })),
-      image: image as any,
+      image: image as string | string[] | undefined,
       articleSection: section,
       keywords: tags,
-    } as any),
+    } as Record<string, unknown>),
   ])
 }
 
@@ -100,7 +100,7 @@ interface ProductOptions {
 export function useProductSchema(options: ProductOptions) {
   const { name, description, image, brand, sku, price, priceCurrency = 'USD', availability, ratingValue, reviewCount } = options
 
-  const product: Record<string, any> = {
+  const product: Record<string, unknown> = {
     name,
     description,
     image,
@@ -177,7 +177,7 @@ interface LocalBusinessOptions {
 export function useLocalBusinessSchema(options: LocalBusinessOptions) {
   const { name, description, image, telephone, email, address, geo, openingHours, priceRange, url } = options
 
-  const business: Record<string, any> = {
+  const business: Record<string, unknown> = {
     '@type': 'LocalBusiness',
     name,
     description,

@@ -1,49 +1,55 @@
-import { ref } from 'vue'
-
-const isNarrating = ref(false)
-const isPaused = ref(false)
-const currentVoiceoverKey = ref<string | null>(null)
-const currentSectionId = ref<string | null>(null)
-const currentVoiceoverIndex = ref<number | null>(null)
-const visibleSectionId = ref<string | null>(null)
-const onNavigationCallbacks = ref<((index: number) => void)[]>([])
-
 export function useNarration() {
+  const isNarrating = useState('narration-isNarrating', () => false);
+  const isPaused = useState('narration-isPaused', () => false);
+  const currentVoiceoverKey = useState<string | null>('narration-currentVoiceoverKey', () => null);
+  const currentSectionId = useState<string | null>('narration-currentSectionId', () => null);
+  const currentVoiceoverIndex = useState<number | null>(
+    'narration-currentVoiceoverIndex',
+    () => null
+  );
+  const visibleSectionId = useState<string | null>('narration-visibleSectionId', () => null);
+  const onNavigationCallbacks = useState<((index: number) => void)[]>(
+    'narration-onNavigationCallbacks',
+    () => []
+  );
+
   function setIsNarrating(val: boolean) {
-    isNarrating.value = val
+    isNarrating.value = val;
   }
-  
+
   function setVisibleSectionId(id: string | null) {
-    visibleSectionId.value = id
+    visibleSectionId.value = id;
   }
-  
+
   function setIsPaused(val: boolean) {
-    isPaused.value = val
+    isPaused.value = val;
   }
-  
+
   function setCurrentVoiceoverKey(key: string | null) {
-    currentVoiceoverKey.value = key
+    currentVoiceoverKey.value = key;
   }
-  
+
   function setCurrentSectionId(id: string | null) {
-    currentSectionId.value = id
+    currentSectionId.value = id;
   }
-  
+
   function setCurrentVoiceoverIndex(index: number | null) {
-    currentVoiceoverIndex.value = index
+    currentVoiceoverIndex.value = index;
   }
 
   // Navigation handler logic for external components (like TourNavigation) to control playback
 
   function registerNavigationHandler(cb: (index: number) => void) {
-    onNavigationCallbacks.value.push(cb)
+    onNavigationCallbacks.value.push(cb);
     return () => {
-      onNavigationCallbacks.value = onNavigationCallbacks.value.filter(fn => fn !== cb)
-    }
+      onNavigationCallbacks.value = onNavigationCallbacks.value.filter((fn) => fn !== cb);
+    };
   }
 
   function emitNavigation(index: number) {
-    onNavigationCallbacks.value.forEach(cb => cb(index))
+    for (const cb of onNavigationCallbacks.value) {
+      cb(index);
+    }
   }
 
   return {
@@ -60,6 +66,6 @@ export function useNarration() {
     setCurrentSectionId,
     setCurrentVoiceoverIndex,
     registerNavigationHandler,
-    emitNavigation
-  }
+    emitNavigation,
+  };
 }

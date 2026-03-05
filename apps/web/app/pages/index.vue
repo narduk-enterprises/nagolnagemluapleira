@@ -3,8 +3,13 @@ import { planetData } from '~/utils/planetData'
 
 // microcopy was removed as it was unused.
 
-useSeoMeta({
+useSeo({
   title: planetData.hero.title,
+  description: planetData.hero.subtitle,
+})
+
+useWebPageSchema({
+  name: planetData.hero.title,
   description: planetData.hero.subtitle,
 })
 

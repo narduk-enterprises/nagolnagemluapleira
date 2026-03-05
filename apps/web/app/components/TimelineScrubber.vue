@@ -1,76 +1,82 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { usePersonality } from '~/composables/usePersonality'
-import { planetData } from '~/utils/planetData'
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { usePersonality } from '~/composables/usePersonality';
+import { planetData } from '~/utils/planetData';
 
-const hour = ref(6)
-const isDragging = ref(false)
-const trackRef = ref<HTMLElement | null>(null)
-const { personality } = usePersonality()
+const hour = ref(6);
+const isDragging = ref(false);
+const trackRef = ref<HTMLElement | null>(null);
+const { personality } = usePersonality();
 
 function updateHour(clientX: number) {
-  if (!trackRef.value) return
-  
-  const rect = trackRef.value.getBoundingClientRect()
-  const x = Math.max(0, Math.min(clientX - rect.left, rect.width))
-  const newHour = Math.round((x / rect.width) * 12)
-  hour.value = Math.max(0, Math.min(12, newHour))
+  if (!trackRef.value) return;
+
+  const rect = trackRef.value.getBoundingClientRect();
+  const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+  const newHour = Math.round((x / rect.width) * 12);
+  hour.value = Math.max(0, Math.min(12, newHour));
 }
 
 function handleMouseDown(e: MouseEvent) {
-  isDragging.value = true
-  updateHour(e.clientX)
+  isDragging.value = true;
+  updateHour(e.clientX);
 }
 
 function handleMouseMove(e: MouseEvent) {
   if (isDragging.value) {
-    updateHour(e.clientX)
+    updateHour(e.clientX);
   }
 }
 
 function handleMouseUp() {
-  isDragging.value = false
+  isDragging.value = false;
 }
 
 onMounted(() => {
-  window.addEventListener('mousemove', handleMouseMove)
-  window.addEventListener('mouseup', handleMouseUp)
-})
+  window.addEventListener('mousemove', handleMouseMove);
+  window.addEventListener('mouseup', handleMouseUp);
+});
 
 onUnmounted(() => {
-  window.removeEventListener('mousemove', handleMouseMove)
-  window.removeEventListener('mouseup', handleMouseUp)
-})
+  window.removeEventListener('mousemove', handleMouseMove);
+  window.removeEventListener('mouseup', handleMouseUp);
+});
 
 function handleTouchStart(e: TouchEvent) {
-  const touch = e.touches[0]
+  const touch = e.touches[0];
   if (touch) {
-    isDragging.value = true
-    updateHour(touch.clientX)
+    isDragging.value = true;
+    updateHour(touch.clientX);
   }
 }
 
 function handleTouchMove(e: TouchEvent) {
-  const touch = e.touches[0]
+  const touch = e.touches[0];
   if (isDragging.value && touch) {
-    updateHour(touch.clientX)
+    updateHour(touch.clientX);
   }
 }
 
 function handleTouchEnd() {
-  isDragging.value = false
+  isDragging.value = false;
+}
+
+const formattedHour = computed(() => hour.value.toString().padStart(2, '0'));
+
+function formatHourLabel(h: number): string {
+  return h.toString().padStart(2, '0');
 }
 
 const currentActivity = computed(() => {
-  return planetData.lifeStyles.timeline.find(entry => entry.hour === hour.value)
-})
+  return planetData.lifeStyles.timeline.find((entry) => entry.hour === hour.value);
+});
 
 const activityText = computed(() => {
-  if (!currentActivity.value) return '[Activity description]'
+  if (!currentActivity.value) return '[Activity description]';
   return personality.value === 'A'
     ? currentActivity.value.personalityA
-    : currentActivity.value.personalityB
-})
+    : currentActivity.value.personalityB;
+});
 </script>
 
 <template>
@@ -79,7 +85,7 @@ const activityText = computed(() => {
       <div class="flex items-center justify-between">
         <div class="text-sm text-muted-foreground">A Day in the Life Timeline</div>
         <div class="font-mono text-2xl font-bold text-primary personality-transition">
-          {{ hour.toString().padStart(2, '0') }}:00
+          {{ formattedHour }}:00
         </div>
       </div>
 
@@ -92,7 +98,7 @@ const activityText = computed(() => {
         @touchend="handleTouchEnd"
       >
         <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-2 bg-border rounded-full" />
-        
+
         <div
           v-for="h in [0, 3, 6, 9, 12]"
           :key="h"
@@ -100,8 +106,10 @@ const activityText = computed(() => {
           :style="{ left: `${(h / 12) * 100}%` }"
         >
           <div class="w-3 h-3 rounded-full bg-border" />
-          <div class="absolute top-6 left-1/2 -translate-x-1/2 text-xs font-mono text-muted-foreground whitespace-nowrap">
-            {{ h.toString().padStart(2, '0') }}:00
+          <div
+            class="absolute top-6 left-1/2 -translate-x-1/2 text-xs font-mono text-muted-foreground whitespace-nowrap"
+          >
+            {{ formatHourLabel(h) }}:00
           </div>
         </div>
 
