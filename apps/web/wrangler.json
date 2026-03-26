@@ -6,7 +6,9 @@
     "directory": ".output/public"
   },
   "compatibility_date": "2026-03-07",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "observability": {
     "enabled": true
   },
@@ -26,8 +28,8 @@
   "kv_namespaces": [
     {
       "binding": "KV",
-      "id": "00000000000000000000000000000000",
-      "preview_id": "00000000000000000000000000000000"
+      "id": "deeb77865881463281e7a13cf0820366",
+      "preview_id": "167431ceb57549e3a45c67720e1cc8d7"
     }
   ]
 }
