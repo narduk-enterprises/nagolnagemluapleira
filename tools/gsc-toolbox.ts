@@ -5,7 +5,7 @@ import 'dotenv/config'
 
 /**
  * GSC Toolbox: Programmatically manage Google Search Console properties.
- * 
+ *
  * Usage:
  * npx jiti tools/gsc-toolbox.ts init <site_url>
  * npx jiti tools/gsc-toolbox.ts verify <site_url>
@@ -36,7 +36,7 @@ function loadCredentials(): Record<string, any> {
   }
 
   throw new Error(
-    'No service account credentials found. Set GSC_SERVICE_ACCOUNT_JSON_PATH (path to key file) or GSC_SERVICE_ACCOUNT_JSON (inline JSON/base64) in your .env'
+    'No service account credentials found. Set GSC_SERVICE_ACCOUNT_JSON_PATH (path to key file) or GSC_SERVICE_ACCOUNT_JSON (inline JSON/base64) in your .env',
   )
 }
 
@@ -46,7 +46,7 @@ async function getAuth() {
     credentials,
     scopes: [
       'https://www.googleapis.com/auth/webmasters',
-      'https://www.googleapis.com/auth/siteverification'
+      'https://www.googleapis.com/auth/siteverification',
     ],
   })
 }
@@ -62,28 +62,28 @@ async function addSite(url: string) {
 async function getVerificationToken(url: string) {
   const auth = await getAuth()
   const siteVerification = google.siteVerification({ version: 'v1', auth })
-  
+
   console.log(`🔍 Getting verification token for ${url}...`)
   const response = await siteVerification.webResource.getToken({
     requestBody: {
       site: { identifier: url, type: 'SITE' },
-      verificationMethod: 'FILE'
-    }
+      verificationMethod: 'FILE',
+    },
   })
-  
+
   return response.data.token
 }
 
 async function verifySite(url: string) {
   const auth = await getAuth()
   const siteVerification = google.siteVerification({ version: 'v1', auth })
-  
+
   console.log(`🛡️  Verifying ownership of ${url}...`)
   await siteVerification.webResource.insert({
     verificationMethod: 'FILE',
     requestBody: {
-      site: { identifier: url, type: 'SITE' }
-    }
+      site: { identifier: url, type: 'SITE' },
+    },
   })
   console.log('✅ Ownership verified.')
 }
@@ -91,12 +91,14 @@ async function verifySite(url: string) {
 async function grantAccess(url: string, email: string) {
   const auth = await getAuth()
   const siteVerification = google.siteVerification({ version: 'v1', auth })
-  
+
   console.log(`👤 Granting "Owner" access to ${email}...`)
   // First get current owners to avoid overwriting them
-  const resource = await siteVerification.webResource.get({
-    id: `http${url.includes('https') ? 's' : ''}://${url.replace(/^https?:\/\//, '')}`
-  }).catch(() => null)
+  const resource = await siteVerification.webResource
+    .get({
+      id: `http${url.includes('https') ? 's' : ''}://${url.replace(/^https?:\/\//, '')}`,
+    })
+    .catch(() => null)
 
   const owners = resource?.data.owners || []
   if (!owners.includes(email)) {
@@ -107,8 +109,8 @@ async function grantAccess(url: string, email: string) {
     id: url,
     requestBody: {
       site: { identifier: url, type: 'SITE' },
-      owners: owners
-    }
+      owners: owners,
+    },
   })
   console.log('✅ Access granted. Property should now appear in your GSC dashboard.')
 }
@@ -116,19 +118,19 @@ async function grantAccess(url: string, email: string) {
 async function submitSitemap(url: string) {
   const auth = await getAuth()
   const searchconsole = google.searchconsole({ version: 'v1', auth })
-  const sitemapUrl = `${url.endsWith('/') ? url : url + '/' }sitemap.xml`
-  
+  const sitemapUrl = `${url.endsWith('/') ? url : url + '/'}sitemap.xml`
+
   console.log(`🚀 Submitting sitemap: ${sitemapUrl}`)
   await searchconsole.sitemaps.submit({
     siteUrl: url,
-    feedpath: sitemapUrl
+    feedpath: sitemapUrl,
   })
   console.log('✅ Sitemap submitted.')
 }
 
 async function main() {
   const cmd = process.argv[2]
-  
+
   if (!siteUrl) {
     console.error('❌ SITE_URL is required.')
     process.exit(1)
@@ -195,7 +197,9 @@ async function main() {
           await grantAccess(siteUrl, userEmail)
         } else {
           console.log('⚠️  GSC_USER_EMAIL not set. Skipping automatic access grant.')
-          console.log('👉 To see this property in your dashboard, add your email to .env and run: npm run setup:gsc:verify')
+          console.log(
+            '👉 To see this property in your dashboard, add your email to .env and run: npm run setup:gsc:verify',
+          )
         }
         break
       }

@@ -13,15 +13,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   future: {
-    compatibilityVersion: 4
+    compatibilityVersion: 4,
   },
 
   ui: {
-    colorMode: true
+    colorMode: true,
   },
 
   colorMode: {
-    preference: 'dark'
+    preference: 'dark',
   },
 
   runtimeConfig: {
@@ -45,7 +45,7 @@ export default defineNuxtConfig({
       posthogProjectId: process.env.POSTHOG_PROJECT_ID || '',
       // IndexNow
       indexNowKey: process.env.INDEXNOW_KEY || '',
-    }
+    },
   },
 
   // ─── SEO Configuration (@nuxtjs/seo) ──────────────────────────
@@ -56,7 +56,8 @@ export default defineNuxtConfig({
   site: {
     url: process.env.SITE_URL || 'https://nagolnagemluapleira.nard.uk',
     name: 'Nagolnagemluapleira',
-    description: 'A 6th grade world-building report (interactive edition) about a planet with dual personalities.',
+    description:
+      'A 6th grade world-building report (interactive edition) about a planet with dual personalities.',
     defaultLocale: 'en',
   },
 
@@ -94,11 +95,11 @@ export default defineNuxtConfig({
     preset: 'cloudflare-module',
     esbuild: {
       options: {
-        target: 'esnext'
-      }
+        target: 'esnext',
+      },
     },
     externals: {
-      inline: ['drizzle-orm']
+      inline: ['drizzle-orm'],
     },
     rollupConfig: {
       plugins: [
@@ -106,7 +107,10 @@ export default defineNuxtConfig({
           name: 'fix-og-image-mock',
           resolveId(id: string) {
             if (id.includes('nuxt-og-image') && id.includes('proxy-cjs')) {
-              return { id: './node_modules/nuxt-og-image/dist/runtime/mock/proxy-cjs.js', external: false }
+              return {
+                id: './node_modules/nuxt-og-image/dist/runtime/mock/proxy-cjs.js',
+                external: false,
+              }
             }
           },
         },
@@ -117,9 +121,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'en' },
-      meta: [
-        { name: 'theme-color', content: '#0a0f1a' },
-      ],
+      meta: [{ name: 'theme-color', content: '#0a0f1a' }],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
@@ -128,6 +130,6 @@ export default defineNuxtConfig({
         { rel: 'manifest', href: '/site.webmanifest' },
       ],
     },
-    pageTransition: { name: 'page', mode: 'out-in' }
-  }
+    pageTransition: { name: 'page', mode: 'out-in' },
+  },
 })

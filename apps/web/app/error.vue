@@ -28,8 +28,8 @@ const description = computed(() => {
   const code = props.error?.statusCode
   if (code === 404) return "The page you're looking for doesn't exist or has been moved."
   if (code === 403) return "You don't have permission to access this resource."
-  if (code === 401) return "Please log in to access this page."
-  return "An unexpected error occurred. Please try again later."
+  if (code === 401) return 'Please log in to access this page.'
+  return 'An unexpected error occurred. Please try again later.'
 })
 
 useSeoMeta({
@@ -42,7 +42,9 @@ useSeoMeta({
   <div class="min-h-screen bg-default flex items-center justify-center p-4">
     <UCard class="max-w-md w-full p-6 text-center shadow-xl border-default">
       <div class="mb-6">
-        <div class="w-20 h-20 bg-muted/10 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div
+          class="w-20 h-20 bg-muted/10 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
           <UIcon name="i-lucide-alert-triangle" class="w-10 h-10 text-primary" />
         </div>
         <h1 class="text-3xl font-bold text-default mb-2">
@@ -57,21 +59,8 @@ useSeoMeta({
       </div>
 
       <div class="space-y-4">
-        <UButton
-          color="primary"
-          size="lg"
-          block
-          to="/"
-        >
-          Go back home
-        </UButton>
-        <UButton
-          variant="ghost"
-          block
-          @click="handleClearError"
-        >
-          Try again
-        </UButton>
+        <UButton color="primary" size="lg" block to="/"> Go back home </UButton>
+        <UButton variant="ghost" block @click="handleClearError"> Try again </UButton>
       </div>
     </UCard>
   </div>

@@ -41,31 +41,19 @@ async function generate() {
   console.log('🎨 Generating favicons from public/favicon.svg...\n')
 
   // Apple Touch Icon (180x180)
-  await sharp(svgBuffer)
-    .resize(180, 180)
-    .png()
-    .toFile(resolve(publicDir, 'apple-touch-icon.png'))
+  await sharp(svgBuffer).resize(180, 180).png().toFile(resolve(publicDir, 'apple-touch-icon.png'))
   console.log('  ✅ apple-touch-icon.png (180x180)')
 
   // Favicon 32x32
-  await sharp(svgBuffer)
-    .resize(32, 32)
-    .png()
-    .toFile(resolve(publicDir, 'favicon-32x32.png'))
+  await sharp(svgBuffer).resize(32, 32).png().toFile(resolve(publicDir, 'favicon-32x32.png'))
   console.log('  ✅ favicon-32x32.png (32x32)')
 
   // Favicon 16x16
-  await sharp(svgBuffer)
-    .resize(16, 16)
-    .png()
-    .toFile(resolve(publicDir, 'favicon-16x16.png'))
+  await sharp(svgBuffer).resize(16, 16).png().toFile(resolve(publicDir, 'favicon-16x16.png'))
   console.log('  ✅ favicon-16x16.png (16x16)')
 
   // favicon.ico (multi-size — use 32x32 as primary)
-  await sharp(svgBuffer)
-    .resize(32, 32)
-    .png()
-    .toFile(resolve(publicDir, 'favicon.ico'))
+  await sharp(svgBuffer).resize(32, 32).png().toFile(resolve(publicDir, 'favicon.ico'))
   console.log('  ✅ favicon.ico (32x32)')
 
   // site.webmanifest

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
 import { usePersonality } from '~/composables/usePersonality'
 import { funFacts, personalityMicrocopy } from '~/utils/planetData'
 

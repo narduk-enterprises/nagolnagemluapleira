@@ -1,82 +1,81 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { usePersonality } from '~/composables/usePersonality';
-import { planetData } from '~/utils/planetData';
+import { usePersonality } from '~/composables/usePersonality'
+import { planetData } from '~/utils/planetData'
 
-const hour = ref(6);
-const isDragging = ref(false);
-const trackRef = ref<HTMLElement | null>(null);
-const { personality } = usePersonality();
+const hour = ref(6)
+const isDragging = ref(false)
+const trackRef = ref<HTMLElement | null>(null)
+const { personality } = usePersonality()
 
 function updateHour(clientX: number) {
-  if (!trackRef.value) return;
+  if (!trackRef.value) return
 
-  const rect = trackRef.value.getBoundingClientRect();
-  const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
-  const newHour = Math.round((x / rect.width) * 12);
-  hour.value = Math.max(0, Math.min(12, newHour));
+  const rect = trackRef.value.getBoundingClientRect()
+  const x = Math.max(0, Math.min(clientX - rect.left, rect.width))
+  const newHour = Math.round((x / rect.width) * 12)
+  hour.value = Math.max(0, Math.min(12, newHour))
 }
 
 function handleMouseDown(e: MouseEvent) {
-  isDragging.value = true;
-  updateHour(e.clientX);
+  isDragging.value = true
+  updateHour(e.clientX)
 }
 
 function handleMouseMove(e: MouseEvent) {
   if (isDragging.value) {
-    updateHour(e.clientX);
+    updateHour(e.clientX)
   }
 }
 
 function handleMouseUp() {
-  isDragging.value = false;
+  isDragging.value = false
 }
 
 onMounted(() => {
-  window.addEventListener('mousemove', handleMouseMove);
-  window.addEventListener('mouseup', handleMouseUp);
-});
+  window.addEventListener('mousemove', handleMouseMove)
+  window.addEventListener('mouseup', handleMouseUp)
+})
 
 onUnmounted(() => {
-  window.removeEventListener('mousemove', handleMouseMove);
-  window.removeEventListener('mouseup', handleMouseUp);
-});
+  window.removeEventListener('mousemove', handleMouseMove)
+  window.removeEventListener('mouseup', handleMouseUp)
+})
 
 function handleTouchStart(e: TouchEvent) {
-  const touch = e.touches[0];
+  const touch = e.touches[0]
   if (touch) {
-    isDragging.value = true;
-    updateHour(touch.clientX);
+    isDragging.value = true
+    updateHour(touch.clientX)
   }
 }
 
 function handleTouchMove(e: TouchEvent) {
-  const touch = e.touches[0];
+  const touch = e.touches[0]
   if (isDragging.value && touch) {
-    updateHour(touch.clientX);
+    updateHour(touch.clientX)
   }
 }
 
 function handleTouchEnd() {
-  isDragging.value = false;
+  isDragging.value = false
 }
 
-const formattedHour = computed(() => hour.value.toString().padStart(2, '0'));
+const formattedHour = computed(() => hour.value.toString().padStart(2, '0'))
 
 function formatHourLabel(h: number): string {
-  return h.toString().padStart(2, '0');
+  return h.toString().padStart(2, '0')
 }
 
 const currentActivity = computed(() => {
-  return planetData.lifeStyles.timeline.find((entry) => entry.hour === hour.value);
-});
+  return planetData.lifeStyles.timeline.find((entry) => entry.hour === hour.value)
+})
 
 const activityText = computed(() => {
-  if (!currentActivity.value) return '[Activity description]';
+  if (!currentActivity.value) return '[Activity description]'
   return personality.value === 'A'
     ? currentActivity.value.personalityA
-    : currentActivity.value.personalityB;
-});
+    : currentActivity.value.personalityB
+})
 </script>
 
 <template>

@@ -21,13 +21,16 @@ defineProps<{
         >
           {{ title }}
         </HighlightableText>
-        <h2 v-else class="text-3xl font-bold text-[var(--color-primary)] personality-transition flex-1 transition-all duration-500">
+        <h2
+          v-else
+          class="text-3xl font-bold text-[var(--color-primary)] personality-transition flex-1 transition-all duration-500"
+        >
           {{ title }}
         </h2>
-        
+
         <NarrateButton v-if="titleVoiceoverKey" :voiceover-key="titleVoiceoverKey" />
       </div>
-      
+
       <div class="space-y-6 text-[var(--color-foreground)]/90">
         <slot />
       </div>

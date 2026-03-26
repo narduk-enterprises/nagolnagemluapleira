@@ -2,7 +2,8 @@
 
 > **🚨 CRITICAL: DO NOT PUSH TO `narduk-enterprises/nagolnagemluapleira` 🚨**
 >
-> This is a **read-only template repository**. Before writing ANY code, you MUST create your own repo:
+> This is a **read-only template repository**. Before writing ANY code, you MUST
+> create your own repo:
 >
 > ```bash
 > gh repo create <project-name> --template narduk-enterprises/nagolnagemluapleira --private --clone
@@ -10,11 +11,15 @@
 > pnpm install
 > ```
 >
-> **Verify your remote** with `git remote -v` — it must NOT point to `narduk-enterprises/nagolnagemluapleira`.
+> **Verify your remote** with `git remote -v` — it must NOT point to
+> `narduk-enterprises/nagolnagemluapleira`.
 
-This is a **minimal Nuxt 4 + Nuxt UI 4** boilerplate deployed to **Cloudflare Workers** with **D1 SQLite** (Drizzle ORM).
+This is a **minimal Nuxt 4 + Nuxt UI 4** boilerplate deployed to **Cloudflare
+Workers** with **D1 SQLite** (Drizzle ORM).
 
-For full-featured example implementations (auth, analytics, blog, dashboard, forms, etc.), see the companion repo: **[`narduk-enterprises/nagolnagemluapleira-examples`](https://github.com/narduk-enterprises/nagolnagemluapleira-examples)**.
+For full-featured example implementations (auth, analytics, blog, dashboard,
+forms, etc.), see the companion repo:
+**[`narduk-enterprises/nagolnagemluapleira-examples`](https://github.com/narduk-enterprises/nagolnagemluapleira-examples)**.
 
 ## Project Structure
 
@@ -65,18 +70,24 @@ useSeo({
   title: '...',
   description: '...',
   ogImage: { title: '...', description: '...', icon: '🎯' },
-});
-useWebPageSchema({ name: '...', description: '...' }); // or useArticleSchema, useProductSchema, etc.
+})
+useWebPageSchema({ name: '...', description: '...' }) // or useArticleSchema, useProductSchema, etc.
 ```
 
-Sitemap and robots.txt are automatic. OG image templates live in `app/components/OgImage/`.
+Sitemap and robots.txt are automatic. OG image templates live in
+`app/components/OgImage/`.
 
 ## Architecture Patterns
 
-- **Thin Components, Thick Composables** — components subscribe to composables, pass props down, emit events up. No inline fetch or complex logic in templates.
-- **SSR-safe state** — use `useState()` or Pinia stores. Never use bare `ref()` at module scope (causes cross-request leaks).
-- **Data fetching** — always use `useAsyncData` or `useFetch`, never raw `$fetch` in `<script setup>`.
-- **Client-only code** — wrap `window`/`document` access in `onMounted` or `<ClientOnly>`.
+- **Thin Components, Thick Composables** — components subscribe to composables,
+  pass props down, emit events up. No inline fetch or complex logic in
+  templates.
+- **SSR-safe state** — use `useState()` or Pinia stores. Never use bare `ref()`
+  at module scope (causes cross-request leaks).
+- **Data fetching** — always use `useAsyncData` or `useFetch`, never raw
+  `$fetch` in `<script setup>`.
+- **Client-only code** — wrap `window`/`document` access in `onMounted` or
+  `<ClientOnly>`.
 
 ## Starting a New Project from This Template
 
@@ -89,7 +100,10 @@ Sitemap and robots.txt are automatic. OG image templates live in `app/components
 
 ## 🚨 CRITICAL RULE: NEVER COMMIT TO THIS REPOSITORY 🚨
 
-If you are an agent building a new project inside a clone of this repository, **DO NOT COMMIT OR PUSH** directly back to `narduk-enterprises/nagolnagemluapleira`. Verify the user has set up a new remote origin first.
+If you are an agent building a new project inside a clone of this repository,
+**DO NOT COMMIT OR PUSH** directly back to
+`narduk-enterprises/nagolnagemluapleira`. Verify the user has set up a new
+remote origin first.
 
 ## Quality Audit Workflows
 
@@ -106,7 +120,9 @@ Run these during development (Antigravity slash-commands):
 
 # 📖 Recipes
 
-These are opt-in feature recipes. Follow them when the project needs a specific capability. For working reference implementations of each, clone **[`narduk-enterprises/nagolnagemluapleira-examples`](https://github.com/narduk-enterprises/nagolnagemluapleira-examples)**.
+These are opt-in feature recipes. Follow them when the project needs a specific
+capability. For working reference implementations of each, clone
+**[`narduk-enterprises/nagolnagemluapleira-examples`](https://github.com/narduk-enterprises/nagolnagemluapleira-examples)**.
 
 ---
 
@@ -121,7 +137,8 @@ These are opt-in feature recipes. Follow them when the project needs a specific 
    ```bash
    npm run init -- --name="your-app-name" --display="Your Display Name" --url="https://yoururl.com"
    ```
-   _(This will rename the project, create the Cloudflare D1 database, spin up the Doppler project, rewrite `wrangler.json`, and then self-destruct.)_
+   _(This will rename the project, create the Cloudflare D1 database, spin up
+   the Doppler project, rewrite `wrangler.json`, and then self-destruct.)_
 2. Configure your Doppler secrets (see Secrets & Env below).
 3. Pull Doppler secrets and initialize the local database schema:
    ```bash
@@ -135,7 +152,9 @@ These are opt-in feature recipes. Follow them when the project needs a specific 
 
 **When:** Always. This is the standard for all projects.
 
-**Principle:** Doppler is the single source of truth for all secrets and environment variables. **Never** create `.env` or `.env.example` files. Never commit secrets.
+**Principle:** Doppler is the single source of truth for all secrets and
+environment variables. **Never** create `.env` or `.env.example` files. Never
+commit secrets.
 
 **Steps:**
 
@@ -158,15 +177,24 @@ These are opt-in feature recipes. Follow them when the project needs a specific 
 
 ### Enterprise Hub-and-Spoke Architecture
 
-All template derivatives should utilize **Doppler Cross-Project Secret Referencing** to avoid duplicating sensitive keys. Do not copy/paste keys manually.
+All template derivatives should utilize **Doppler Cross-Project Secret
+Referencing** to avoid duplicating sensitive keys. Do not copy/paste keys
+manually.
 
-1. **`narduk-enterprise-apps` Hub**: This project holds infrastructure deploy credentials (e.g., `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`).
-2. **`narduk-analytics` Hub**: This project holds central management keys for generating analytics (e.g., `POSTHOG_PERSONAL_API_KEY`, `GA_ACCOUNT_ID`).
-3. **App Spoke (`<app-name>`)**: This is your new app's isolated project. Inherit the deploy credentials from the Hub using Doppler references:
-   - `CLOUDFLARE_API_TOKEN` = `${narduk-enterprise-apps.prd.CLOUDFLARE_API_TOKEN}`
-   - `CLOUDFLARE_ACCOUNT_ID` = `${narduk-enterprise-apps.prd.CLOUDFLARE_ACCOUNT_ID}`
+1. **`narduk-enterprise-apps` Hub**: This project holds infrastructure deploy
+   credentials (e.g., `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`).
+2. **`narduk-analytics` Hub**: This project holds central management keys for
+   generating analytics (e.g., `POSTHOG_PERSONAL_API_KEY`, `GA_ACCOUNT_ID`).
+3. **App Spoke (`<app-name>`)**: This is your new app's isolated project.
+   Inherit the deploy credentials from the Hub using Doppler references:
+   - `CLOUDFLARE_API_TOKEN` =
+     `${narduk-enterprise-apps.prd.CLOUDFLARE_API_TOKEN}`
+   - `CLOUDFLARE_ACCOUNT_ID` =
+     `${narduk-enterprise-apps.prd.CLOUDFLARE_ACCOUNT_ID}`
 
-**Reference:** See `nagolnagemluapleira-examples/nuxt.config.ts` for the full runtimeConfig block and `nagolnagemluapleira-examples/AGENT_ANALYTICS.md` for automation script details.
+**Reference:** See `nagolnagemluapleira-examples/nuxt.config.ts` for the full
+runtimeConfig block and `nagolnagemluapleira-examples/AGENT_ANALYTICS.md` for
+automation script details.
 
 ---
 
@@ -186,14 +214,14 @@ All template derivatives should utilize **Doppler Cross-Project Secret Referenci
 2. Create `vitest.config.ts`:
 
    ```ts
-   import { defineVitestConfig } from '@nuxt/test-utils/config';
-   export default defineVitestConfig({});
+   import { defineVitestConfig } from '@nuxt/test-utils/config'
+   export default defineVitestConfig({})
    ```
 
 3. Create `playwright.config.ts`:
 
    ```ts
-   import { defineConfig, devices } from '@playwright/test';
+   import { defineConfig, devices } from '@playwright/test'
    export default defineConfig({
      testDir: './tests/e2e',
      fullyParallel: true,
@@ -208,7 +236,7 @@ All template derivatives should utilize **Doppler Cross-Project Secret Referenci
        timeout: 120_000,
      },
      projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
-   });
+   })
    ```
 
 4. Add npm scripts to `package.json`:
@@ -230,38 +258,60 @@ All template derivatives should utilize **Doppler Cross-Project Secret Referenci
 
 **Steps:**
 
-1. Add auth tables to `server/database/schema.ts` (users + sessions tables with Drizzle).
-2. Create `server/utils/auth.ts` — PBKDF2 password hashing using `crypto.subtle` (NOT bcrypt).
-3. Create API routes: `server/api/auth/login.post.ts`, `register.post.ts`, `logout.post.ts`, `me.get.ts`.
-4. Create `app/composables/useAuth.ts` — reactive auth state backed by `useState()`.
-5. Create `app/middleware/auth.ts` — route guard that redirects unauthenticated users.
+1. Add auth tables to `server/database/schema.ts` (users + sessions tables with
+   Drizzle).
+2. Create `server/utils/auth.ts` — PBKDF2 password hashing using `crypto.subtle`
+   (NOT bcrypt).
+3. Create API routes: `server/api/auth/login.post.ts`, `register.post.ts`,
+   `logout.post.ts`, `me.get.ts`.
+4. Create `app/composables/useAuth.ts` — reactive auth state backed by
+   `useState()`.
+5. Create `app/middleware/auth.ts` — route guard that redirects unauthenticated
+   users.
 
-**Key constraint:** All crypto MUST use Web Crypto API (`crypto.subtle.deriveKey` with PBKDF2). Node.js `crypto` and `bcrypt` are forbidden on Cloudflare Workers.
+**Key constraint:** All crypto MUST use Web Crypto API
+(`crypto.subtle.deriveKey` with PBKDF2). Node.js `crypto` and `bcrypt` are
+forbidden on Cloudflare Workers.
 
-**Reference:** See `nagolnagemluapleira-examples/server/utils/auth.ts` and `nagolnagemluapleira-examples/app/composables/useAuth.ts`.
+**Reference:** See `nagolnagemluapleira-examples/server/utils/auth.ts` and
+`nagolnagemluapleira-examples/app/composables/useAuth.ts`.
 
 ---
 
 ## � Recipe: Analytics (PostHog + GA4 + GSC + IndexNow)
 
-**When:** You need product analytics, web analytics, and search engine integration.
+**When:** You need product analytics, web analytics, and search engine
+integration.
 
 **Steps:**
 
-1. **PostHog:** Already wired — `app/plugins/posthog.client.ts` reads `POSTHOG_PUBLIC_KEY` from runtimeConfig. Set the key via Doppler reference from `narduk-analytics` (no new project is created; apps differentiate via the `app` event property automatically injected by the plugin).
-2. **GA4:** Already wired — `app/plugins/gtag.client.ts` reads `GA_MEASUREMENT_ID`. Set in Doppler.
-3. **IndexNow:** Already wired — `server/routes/[key].txt.ts` + `server/api/indexnow/submit.post.ts`. Set `INDEXNOW_KEY` in Doppler.
+1. **PostHog:** Already wired — `app/plugins/posthog.client.ts` reads
+   `POSTHOG_PUBLIC_KEY` from runtimeConfig. Set the key via Doppler reference
+   from `narduk-analytics` (no new project is created; apps differentiate via
+   the `app` event property automatically injected by the plugin).
+2. **GA4:** Already wired — `app/plugins/gtag.client.ts` reads
+   `GA_MEASUREMENT_ID`. Set in Doppler.
+3. **IndexNow:** Already wired — `server/routes/[key].txt.ts` +
+   `server/api/indexnow/submit.post.ts`. Set `INDEXNOW_KEY` in Doppler.
 4. **Google Search Console:** Use the setup automation in the examples repo.
 
-All plugins **no-op gracefully** when their keys are empty — safe for dev without any Doppler config.
+All plugins **no-op gracefully** when their keys are empty — safe for dev
+without any Doppler config.
 
-**Automated setup:** The examples repo includes `tools/setup-analytics.ts` which bootstraps GA4 and GSC via API.
+**Automated setup:** The examples repo includes `tools/setup-analytics.ts` which
+bootstraps GA4 and GSC via API.
 
-**Doppler architecture:** Universal management keys live in the `narduk-analytics` Doppler project. Per-app keys go in the app's own Doppler project. You must reference the exact `POSTHOG_PUBLIC_KEY` and `POSTHOG_PROJECT_ID` from the analytics hub.
+**Doppler architecture:** Universal management keys live in the
+`narduk-analytics` Doppler project. Per-app keys go in the app's own Doppler
+project. You must reference the exact `POSTHOG_PUBLIC_KEY` and
+`POSTHOG_PROJECT_ID` from the analytics hub.
 
-> **⚠️ WARNING: PostHog Workspaces**
-> Do not create a separate project workspace inside PostHog for each new app unless specifically requested! The expected behavior is that ALL template apps log to the single "Narduk Analytics" master project in PostHog. The apps are differentiated using the `app:` property attached to every event by the client plugin.
-> Ensure your Doppler environment references the `narduk-analytics` keys directly.
+> **⚠️ WARNING: PostHog Workspaces** Do not create a separate project workspace
+> inside PostHog for each new app unless specifically requested! The expected
+> behavior is that ALL template apps log to the single "Narduk Analytics" master
+> project in PostHog. The apps are differentiated using the `app:` property
+> attached to every event by the client plugin. Ensure your Doppler environment
+> references the `narduk-analytics` keys directly.
 
 ---
 
@@ -271,15 +321,19 @@ All plugins **no-op gracefully** when their keys are empty — safe for dev with
 
 **Steps:**
 
-1. `@nuxt/content` is already in the template. Create markdown files in `content/`.
+1. `@nuxt/content` is already in the template. Create markdown files in
+   `content/`.
 2. Create a blog layout: `app/layouts/blog.vue` with sidebar + header chrome.
-3. Create blog pages: `app/pages/blog/index.vue` (list) and `app/pages/blog/[slug].vue` (detail).
+3. Create blog pages: `app/pages/blog/index.vue` (list) and
+   `app/pages/blog/[slug].vue` (detail).
 4. Query content with `queryCollection('content')` in `useAsyncData`.
 5. Render with `<ContentRenderer :value="post" />`.
 
-**Key gotcha:** On Cloudflare Workers, Nuxt Content auto-switches to D1 database storage. Make sure the `DB` binding is configured in `wrangler.json`.
+**Key gotcha:** On Cloudflare Workers, Nuxt Content auto-switches to D1 database
+storage. Make sure the `DB` binding is configured in `wrangler.json`.
 
-**Reference:** See `nagolnagemluapleira-examples/content/templates/blog/` and `nagolnagemluapleira-examples/app/pages/templates/blog/`.
+**Reference:** See `nagolnagemluapleira-examples/content/templates/blog/` and
+`nagolnagemluapleira-examples/app/pages/templates/blog/`.
 
 ---
 
@@ -293,27 +347,35 @@ All plugins **no-op gracefully** when their keys are empty — safe for dev with
 2. Add to `nuxt.config.ts` modules: `'@nuxt/eslint'`
 3. Create `eslint.config.mjs`:
    ```js
-   import withNuxt from './.nuxt/eslint.config.mjs';
-   export default withNuxt();
+   import withNuxt from './.nuxt/eslint.config.mjs'
+   export default withNuxt()
    ```
 4. Add script: `"lint": "eslint ."` / `"lint:fix": "eslint . --fix"`
 
-**Runtime audits:** Use the built-in `/check-*` workflows (see Quality Audit Workflows above) to validate Nuxt UI v4 compliance, SSR safety, store separation, and edge compatibility.
+**Runtime audits:** Use the built-in `/check-*` workflows (see Quality Audit
+Workflows above) to validate Nuxt UI v4 compliance, SSR safety, store
+separation, and edge compatibility.
 
 ---
 
 ## 🎨 Recipe: UI Components (Landing Pages, Dashboards)
 
-**When:** You need pre-built UI sections like heroes, pricing tables, testimonials, contact forms, or dashboard layouts.
+**When:** You need pre-built UI sections like heroes, pricing tables,
+testimonials, contact forms, or dashboard layouts.
 
 **Steps:**
 
-1. Browse the components in `nagolnagemluapleira-examples/app/components/ui/` — includes `HeroSection`, `FeatureGrid`, `PricingTable`, `TestimonialCarousel`, `ContactForm`, `CTABanner`.
-2. Browse layouts in `nagolnagemluapleira-examples/app/layouts/` — includes `blog.vue`, `dashboard.vue`, `landing.vue`.
+1. Browse the components in `nagolnagemluapleira-examples/app/components/ui/` —
+   includes `HeroSection`, `FeatureGrid`, `PricingTable`, `TestimonialCarousel`,
+   `ContactForm`, `CTABanner`.
+2. Browse layouts in `nagolnagemluapleira-examples/app/layouts/` — includes
+   `blog.vue`, `dashboard.vue`, `landing.vue`.
 3. Copy what you need into your project's `app/components/` or `app/layouts/`.
-4. Customize colors via `app/app.config.ts` and fonts via `app/assets/css/main.css`.
+4. Customize colors via `app/app.config.ts` and fonts via
+   `app/assets/css/main.css`.
 
-**Reference:** See `nagolnagemluapleira-examples/app/components/ui/` for the full set.
+**Reference:** See `nagolnagemluapleira-examples/app/components/ui/` for the
+full set.
 
 ---
 
@@ -325,7 +387,10 @@ All plugins **no-op gracefully** when their keys are empty — safe for dev with
 
 1. Use Nuxt UI's native `<UForm :schema :state>` with Zod validation.
 2. Connect fields via `<UFormField name="...">`.
-3. For consistent card chrome, create an `AppFormCard` wrapper component (see examples repo).
-4. Use layout utility classes in `main.css`: `.form-section` (vertical gap), `.form-row` (2-col grid), `.form-actions` (button alignment).
+3. For consistent card chrome, create an `AppFormCard` wrapper component (see
+   examples repo).
+4. Use layout utility classes in `main.css`: `.form-section` (vertical gap),
+   `.form-row` (2-col grid), `.form-actions` (button alignment).
 
-**Reference:** See `nagolnagemluapleira-examples/app/components/AppFormCard.vue` and `nagolnagemluapleira-examples/app/composables/useFormHandler.ts`.
+**Reference:** See `nagolnagemluapleira-examples/app/components/AppFormCard.vue`
+and `nagolnagemluapleira-examples/app/composables/useFormHandler.ts`.

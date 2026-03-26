@@ -1,44 +1,43 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { originalPages } from '~/utils/planetData';
+import { originalPages } from '~/utils/planetData'
 
-const isModalOpen = ref(false);
-const selectedIndex = ref<number | null>(null);
-const scale = ref(1);
+const isModalOpen = ref(false)
+const selectedIndex = ref<number | null>(null)
+const scale = ref(1)
 
 function openViewer(index: number) {
-  selectedIndex.value = index;
-  scale.value = 1;
-  isModalOpen.value = true;
+  selectedIndex.value = index
+  scale.value = 1
+  isModalOpen.value = true
 }
 
 function closeViewer() {
-  isModalOpen.value = false;
-  selectedIndex.value = null;
-  scale.value = 1;
+  isModalOpen.value = false
+  selectedIndex.value = null
+  scale.value = 1
 }
 
 function navigatePrev() {
   if (selectedIndex.value !== null && selectedIndex.value > 0) {
-    selectedIndex.value--;
-    scale.value = 1;
+    selectedIndex.value--
+    scale.value = 1
   }
 }
 
 function navigateNext() {
   if (selectedIndex.value !== null && selectedIndex.value < originalPages.length - 1) {
-    selectedIndex.value++;
-    scale.value = 1;
+    selectedIndex.value++
+    scale.value = 1
   }
 }
-const scalePercent = computed(() => Math.round(scale.value * 100));
+const scalePercent = computed(() => Math.round(scale.value * 100))
 
 function zoomOut() {
-  scale.value = Math.max(0.5, scale.value - 0.25);
+  scale.value = Math.max(0.5, scale.value - 0.25)
 }
 
 function zoomIn() {
-  scale.value = Math.min(3, scale.value + 0.25);
+  scale.value = Math.min(3, scale.value + 0.25)
 }
 </script>
 

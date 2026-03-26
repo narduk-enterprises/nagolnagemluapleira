@@ -141,15 +141,15 @@ export const VOICEOVER_TO_SECTION: Record<string, string> = {
 
 // Map section IDs to their first voiceover key
 export const SECTION_TO_FIRST_VOICEOVER: Record<string, string> = {
-  'hero': 'planetData.hero.title',
+  hero: 'planetData.hero.title',
   'big-idea': 'planetData.bigIdea.title',
   'life-styles': 'planetData.lifeStyles.title',
-  'transportation': 'planetData.transportation.title',
-  'government': 'planetData.government.title',
-  'holidays': 'planetData.holidays.title',
-  'anthem': 'planetData.anthem.title',
-  'quote': 'planetData.quote.title',
-  'credits': 'planetData.credits.title',
+  transportation: 'planetData.transportation.title',
+  government: 'planetData.government.title',
+  holidays: 'planetData.holidays.title',
+  anthem: 'planetData.anthem.title',
+  quote: 'planetData.quote.title',
+  credits: 'planetData.credits.title',
 }
 
 /**

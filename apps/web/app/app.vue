@@ -5,17 +5,19 @@ const { personality } = usePersonality()
 
 useHead({
   htmlAttrs: {
-    lang: 'en'
+    lang: 'en',
   },
   bodyAttrs: {
-    'data-personality': personality
-  }
+    'data-personality': personality,
+  },
 })
 </script>
 
 <template>
   <UApp>
-    <div class="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)] personality-transition overflow-x-hidden w-full m-0 p-0 font-sans">
+    <div
+      class="min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)] personality-transition overflow-x-hidden w-full m-0 p-0 font-sans"
+    >
       <NuxtPage />
     </div>
   </UApp>

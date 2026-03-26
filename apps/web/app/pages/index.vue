@@ -36,30 +36,47 @@ function scrollToSection(sectionId: string) {
     >
       <div
         class="absolute inset-0 opacity-20 personality-transition"
-        style="background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, var(--color-primary) 35px, var(--color-primary) 36px);"
+        style="
+          background-image: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 35px,
+            var(--color-primary) 35px,
+            var(--color-primary) 36px
+          );
+        "
       />
 
       <div class="relative z-10 w-full max-w-lg mx-auto space-y-6 transition-all duration-500">
         <div class="mx-auto max-w-xs w-full mb-4 relative logo-container">
-          <img 
-            src="/images/nagolnagemcover.png" 
+          <img
+            src="/images/nagolnagemcover.png"
             alt="Nagolnagemluapleira Logo"
             class="w-full h-auto personality-transition block"
-            style="filter: sepia(60%) saturate(150%) hue-rotate(10deg) brightness(0.95);"
+            style="filter: sepia(60%) saturate(150%) hue-rotate(10deg) brightness(0.95)"
           />
         </div>
 
-        <HighlightableText as="h1" class="text-4xl font-bold tracking-tight personality-transition text-[var(--color-primary)] text-center">
+        <HighlightableText
+          as="h1"
+          class="text-4xl font-bold tracking-tight personality-transition text-[var(--color-primary)] text-center"
+        >
           <GlossaryTerm term="Nagolnagemluapleira">
             {{ planetData.hero.title }}
           </GlossaryTerm>
         </HighlightableText>
 
-        <HighlightableText as="p" class="text-xl font-medium text-[var(--color-foreground)]/70 text-center">
+        <HighlightableText
+          as="p"
+          class="text-xl font-medium text-[var(--color-foreground)]/70 text-center"
+        >
           {{ planetData.hero.tagline }}
         </HighlightableText>
 
-        <HighlightableText as="p" class="text-base text-[var(--color-muted-foreground)] leading-relaxed text-center">
+        <HighlightableText
+          as="p"
+          class="text-base text-[var(--color-muted-foreground)] leading-relaxed text-center"
+        >
           {{ planetData.hero.subtitle }}
         </HighlightableText>
 
@@ -92,7 +109,7 @@ function scrollToSection(sectionId: string) {
         <HighlightableText class="text-base leading-relaxed text-[var(--color-foreground)]">
           {{ planetData.bigIdea.intro }}
         </HighlightableText>
-        
+
         <UCard class="p-5 bg-[var(--color-muted)]/50">
           <HighlightableText class="text-sm leading-relaxed text-[var(--color-foreground)]/90">
             {{ planetData.bigIdea.explanation }}
@@ -149,10 +166,15 @@ function scrollToSection(sectionId: string) {
             indicators
           >
             <UCard class="p-5 space-y-3 w-full mx-2 h-full">
-              <HighlightableText as="h3" class="text-lg font-semibold text-[var(--color-primary)] personality-transition block">
+              <HighlightableText
+                as="h3"
+                class="text-lg font-semibold text-[var(--color-primary)] personality-transition block"
+              >
                 {{ section.title }}
               </HighlightableText>
-              <HighlightableText class="text-sm leading-relaxed whitespace-pre-wrap text-[var(--color-foreground)]/80">
+              <HighlightableText
+                class="text-sm leading-relaxed whitespace-pre-wrap text-[var(--color-foreground)]/80"
+              >
                 {{ section.content }}
               </HighlightableText>
             </UCard>
@@ -172,8 +194,15 @@ function scrollToSection(sectionId: string) {
         <USeparator class="my-6" />
 
         <div class="space-y-4">
-          <UCard v-for="section in planetData.transportation.sections" :key="section.id" class="p-5 space-y-3">
-            <HighlightableText as="h3" class="text-lg font-semibold text-[var(--color-primary)] personality-transition block">
+          <UCard
+            v-for="section in planetData.transportation.sections"
+            :key="section.id"
+            class="p-5 space-y-3"
+          >
+            <HighlightableText
+              as="h3"
+              class="text-lg font-semibold text-[var(--color-primary)] personality-transition block"
+            >
               {{ section.title }}
             </HighlightableText>
             <HighlightableText class="text-sm leading-relaxed text-[var(--color-foreground)]/80">
@@ -226,10 +255,15 @@ function scrollToSection(sectionId: string) {
       <div class="space-y-6">
         <UCard class="p-6 bg-[var(--color-muted)]/50">
           <blockquote class="space-y-3">
-            <HighlightableText class="text-xl font-medium leading-relaxed italic text-[var(--color-foreground)]/90">
+            <HighlightableText
+              class="text-xl font-medium leading-relaxed italic text-[var(--color-foreground)]/90"
+            >
               "{{ planetData.quote.quote }}"
             </HighlightableText>
-            <HighlightableText as="p" class="text-base text-[var(--color-muted-foreground)] text-right pr-4">
+            <HighlightableText
+              as="p"
+              class="text-base text-[var(--color-muted-foreground)] text-right pr-4"
+            >
               &mdash; {{ planetData.quote.author }}
             </HighlightableText>
           </blockquote>
@@ -254,7 +288,11 @@ function scrollToSection(sectionId: string) {
         </HighlightableText>
 
         <div class="space-y-2">
-          <HighlightableText v-for="(author, index) in planetData.credits.authors" :key="index" class="text-lg font-semibold text-[var(--color-primary)] personality-transition block">
+          <HighlightableText
+            v-for="(author, index) in planetData.credits.authors"
+            :key="index"
+            class="text-lg font-semibold text-[var(--color-primary)] personality-transition block"
+          >
             {{ author }}
           </HighlightableText>
         </div>
@@ -273,7 +311,9 @@ function scrollToSection(sectionId: string) {
       </UCard>
     </SectionShell>
 
-    <div class="py-6 text-center text-xs text-[var(--color-muted-foreground)] border-t border-[var(--color-border)] no-print mt-12 mb-20 md:mb-6">
+    <div
+      class="py-6 text-center text-xs text-[var(--color-muted-foreground)] border-t border-[var(--color-border)] no-print mt-12 mb-20 md:mb-6"
+    >
       <p>An interactive planet report &bull; Built with curiosity and code</p>
     </div>
   </div>

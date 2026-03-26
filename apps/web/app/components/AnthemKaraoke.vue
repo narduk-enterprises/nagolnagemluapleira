@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
-import { planetData } from '~/utils/planetData';
+import { planetData } from '~/utils/planetData'
 
 interface LineTiming {
-  i: number;
-  start: number;
-  end: number;
-  text: string;
+  i: number
+  start: number
+  end: number
+  text: string
 }
 
 const anthemTiming: LineTiming[] = [
@@ -27,129 +26,129 @@ const anthemTiming: LineTiming[] = [
   { i: 12, start: 60, end: 64, text: 'A flourishing economy' },
   { i: 1, start: 62, end: 66, text: 'Nagol nagem luap leira,' },
   { i: 13, start: 70, end: 82, text: 'Our future stands as one.' },
-];
+]
 
-const isPlaying = ref(false);
-const currentLine = ref(-1);
-const isTransitioning = ref(false);
-const currentTime = ref(0);
-const duration = ref(0);
-const isDragging = ref(false);
-const audioRef = ref<HTMLAudioElement | null>(null);
+const isPlaying = ref(false)
+const currentLine = ref(-1)
+const isTransitioning = ref(false)
+const currentTime = ref(0)
+const duration = ref(0)
+const isDragging = ref(false)
+const audioRef = ref<HTMLAudioElement | null>(null)
 
 function formatTime(seconds: number): string {
-  if (Number.isNaN(seconds) || !Number.isFinite(seconds)) return '0:00';
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
+  if (Number.isNaN(seconds) || !Number.isFinite(seconds)) return '0:00'
+  const mins = Math.floor(seconds / 60)
+  const secs = Math.floor(seconds % 60)
+  return `${mins}:${secs.toString().padStart(2, '0')}`
 }
 
 function handleTimeUpdate() {
-  if (!audioRef.value || isDragging.value) return;
+  if (!audioRef.value || isDragging.value) return
 
-  const time = audioRef.value.currentTime;
-  currentTime.value = time;
+  const time = audioRef.value.currentTime
+  currentTime.value = time
 
-  const activeLineIndex = anthemTiming.findIndex((line) => time >= line.start && time <= line.end);
+  const activeLineIndex = anthemTiming.findIndex((line) => time >= line.start && time <= line.end)
 
   if (activeLineIndex === -1) {
     if (
       anthemTiming.length > 0 &&
       (time < (anthemTiming[0]?.start ?? 0) || time > (anthemTiming.at(-1)?.end ?? 0))
     ) {
-      currentLine.value = -1;
+      currentLine.value = -1
     }
-    return;
+    return
   }
 
   if (activeLineIndex !== currentLine.value) {
-    isTransitioning.value = true;
+    isTransitioning.value = true
     setTimeout(() => {
-      currentLine.value = activeLineIndex;
-      isTransitioning.value = false;
-    }, 150);
+      currentLine.value = activeLineIndex
+      isTransitioning.value = false
+    }, 150)
   }
 }
 
 const syncAudio = () => {
-  const audio = audioRef.value;
+  const audio = audioRef.value
   if (audio) {
-    currentTime.value = audio.currentTime;
-    requestAnimationFrame(syncAudio);
+    currentTime.value = audio.currentTime
+    requestAnimationFrame(syncAudio)
   }
-};
+}
 
 function handleLoadedMetadata() {
-  const audio = audioRef.value;
+  const audio = audioRef.value
   if (audio) {
-    duration.value = audio.duration;
+    duration.value = audio.duration
     // Sync duration on load
-    requestAnimationFrame(syncAudio);
+    requestAnimationFrame(syncAudio)
   }
 }
 
 function handleEnded() {
-  isPlaying.value = false;
-  currentLine.value = -1;
-  isTransitioning.value = false;
-  currentTime.value = 0;
+  isPlaying.value = false
+  currentLine.value = -1
+  isTransitioning.value = false
+  currentTime.value = 0
 }
 
 watch(isPlaying, (newVal) => {
-  if (!audioRef.value) return;
+  if (!audioRef.value) return
 
   if (newVal) {
-    audioRef.value.play().catch(console.error);
+    audioRef.value.play().catch(console.error)
   } else {
-    audioRef.value.pause();
+    audioRef.value.pause()
   }
-});
+})
 
 function handlePlay() {
-  if (!audioRef.value) return;
+  if (!audioRef.value) return
   if (currentLine.value >= anthemTiming.length - 1 || currentLine.value === -1) {
-    audioRef.value.currentTime = 0;
-    currentLine.value = -1;
+    audioRef.value.currentTime = 0
+    currentLine.value = -1
   }
-  isPlaying.value = true;
+  isPlaying.value = true
 }
 
 function handlePause() {
-  isPlaying.value = false;
+  isPlaying.value = false
 }
 
 function handleReset() {
-  if (!audioRef.value) return;
-  audioRef.value.pause();
-  audioRef.value.currentTime = 0;
-  isPlaying.value = false;
-  currentLine.value = -1;
-  isTransitioning.value = false;
-  currentTime.value = 0;
+  if (!audioRef.value) return
+  audioRef.value.pause()
+  audioRef.value.currentTime = 0
+  isPlaying.value = false
+  currentLine.value = -1
+  isTransitioning.value = false
+  currentTime.value = 0
 }
 
 function handleSeek() {
-  if (!audioRef.value) return;
-  audioRef.value.currentTime = currentTime.value;
+  if (!audioRef.value) return
+  audioRef.value.currentTime = currentTime.value
 }
 
 function handleSeekEnd() {
-  isDragging.value = false;
-  handleSeek();
+  isDragging.value = false
+  handleSeek()
 }
 
 const displayLine = computed(() => {
   if (currentLine.value >= 0 && currentLine.value < anthemTiming.length) {
-    return anthemTiming[currentLine.value]?.text || '';
+    return anthemTiming[currentLine.value]?.text || ''
   }
-  return '';
-});
+  return ''
+})
 
 onMounted(() => {
   if (audioRef.value && audioRef.value.duration) {
-    duration.value = audioRef.value.duration;
+    duration.value = audioRef.value.duration
   }
-});
+})
 </script>
 
 <template>

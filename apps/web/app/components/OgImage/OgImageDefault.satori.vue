@@ -9,29 +9,32 @@
   Note: Satori has limited CSS support — use inline styles and flexbox only.
   No Tailwind classes, no CSS Grid, no pseudo-elements.
 -->
-<!-- eslint-disable atx/no-inline-hex -->
 <script setup lang="ts">
-withDefaults(defineProps<{
-  title?: string
-  description?: string
-  icon?: string
-  siteName?: string
-}>(), {
-  title: 'Nuxt 4 Template',
-  description: 'Production-ready Nuxt 4 + Cloudflare Workers',
-  icon: '✨',
-  siteName: 'Nagolnagemluapleira',
-})
+withDefaults(
+  defineProps<{
+    title?: string
+    description?: string
+    icon?: string
+    siteName?: string
+  }>(),
+  {
+    title: 'Nuxt 4 Template',
+    description: 'Production-ready Nuxt 4 + Cloudflare Workers',
+    icon: '✨',
+    siteName: 'Nagolnagemluapleira',
+  },
+)
 const COLORS = {
-  bgStart: '#0a0f1a',
-  bgMid: '#0f1729',
-  bgEnd: '#111d33',
-  primary: '#10b981',
-  secondary: '#3b82f6',
-  accent: '#8b5cf6',
-  foreground: '#f1f5f9',
-  muted: '#94a3b8',
-  slate: '#64748b'
+  bgStart: 'rgb(10, 15, 26)',
+  bgMid: 'rgb(15, 23, 41)',
+  bgEnd: 'rgb(17, 29, 51)',
+  primary: 'rgb(16, 185, 129)',
+  primarySoft: 'rgba(16, 185, 129, 0.15)',
+  secondary: 'rgb(59, 130, 246)',
+  accent: 'rgb(139, 92, 246)',
+  foreground: 'rgb(241, 245, 249)',
+  muted: 'rgb(148, 163, 184)',
+  slate: 'rgb(100, 116, 139)',
 } as const
 </script>
 
@@ -60,7 +63,7 @@ const COLORS = {
         width: '500px',
         height: '500px',
         borderRadius: '50%',
-        background: `radial-gradient(circle, ${COLORS.primary}26 0%, transparent 70%)`,
+        background: `radial-gradient(circle, ${COLORS.primarySoft} 0%, transparent 70%)`,
       }"
     />
 
